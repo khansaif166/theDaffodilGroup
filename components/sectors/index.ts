@@ -1,0 +1,1 @@
+export { SectorsPage } from "./SectorsPage";

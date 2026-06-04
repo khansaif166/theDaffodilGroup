@@ -1,0 +1,52 @@
+:root {
+  --color-cream: #f5f0ea;
+  --color-white: #ffffff;
+  --color-charcoal: #0e0d0c;
+  --color-gold: #d1a972;
+  --color-text: rgba(14, 13, 12, 0.88);
+  --color-text-muted: rgba(14, 13, 12, 0.64);
+  --color-border: rgba(14, 13, 12, 0.12);
+  --color-border-strong: rgba(14, 13, 12, 0.24);
+  --color-surface-elevated: rgba(255, 255, 255, 0.72);
+  --color-surface-dark: #171513;
+  --shadow-soft: 0 22px 60px rgba(14, 13, 12, 0.08);
+  --shadow-nav: 0 12px 30px rgba(14, 13, 12, 0.07);
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: clamp(2.75rem, 5vw, 4.75rem);
+  --font-size-2xl: clamp(2.125rem, 4vw, 3.5rem);
+  --font-size-3xl: clamp(1.625rem, 2.5vw, 2.5rem);
+  --line-height-tight: 0.96;
+  --line-height-heading: 1.05;
+  --line-height-body: 1.65;
+  --tracking-wide: 0.12em;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 5rem;
+  --space-3xl: 7.5rem;
+  --space-4xl: 9rem;
+  --section-padding: clamp(7.5rem, 10vw, 10rem);
+  --container-width: 1240px;
+  --container-narrow: 920px;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.5rem;
+  --radius-pill: 999px;
+  --transition-fast: 180ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 600ms ease;
+  --nav-height: 88px;
+}
+
+@media (max-width: 960px) {
+  :root {
+    --nav-height: 76px;
+    --section-padding: clamp(5.5rem, 12vw, 7rem);
+  }
+}

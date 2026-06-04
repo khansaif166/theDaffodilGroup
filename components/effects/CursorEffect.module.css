@@ -1,0 +1,31 @@
+.cursorRoot {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.dot,
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform, opacity;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-charcoal);
+}
+
+.ring {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(209, 169, 114, 0.9);
+}

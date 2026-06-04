@@ -1,0 +1,13 @@
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 220;
+  width: var(--loader-progress, 0%);
+  height: 2px;
+  background: var(--color-gold);
+  opacity: var(--loader-opacity, 1);
+  transition:
+    width 600ms ease,
+    opacity 220ms ease 620ms;
+}
