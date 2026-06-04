@@ -1,49 +1,54 @@
 "use client";
 
-import { useScrollReveal } from "@/lib";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
 
-import styles from "../HomePage.module.css";
-import type { Sector } from "../types";
+import styles from "./OurSectorsSection.module.css";
 
-const sectors: Sector[] = [
+gsap.registerPlugin(ScrollTrigger);
+
+const sectors = [
   {
     name: "Design & Interior Architecture",
-    description: "Spatial experiences shaped with craft, restraint, and residential warmth.",
+    description: "Curating spaces that blend form, function, and feeling.",
     icon: "design",
   },
   {
     name: "Construction & Fitout",
-    description: "Execution capabilities that translate vision into high-fidelity environments.",
+    description: "End-to-end build solutions for residential and commercial.",
     icon: "construction",
   },
   {
     name: "Technology & Digital",
-    description: "Digital products, content systems, and strategic platforms built for scale.",
+    description: "Digital products and platforms built for scale.",
     icon: "technology",
   },
   {
     name: "FMCG",
-    description: "Consumer brands designed for recall, quality, and everyday relevance.",
+    description: "Consumer brands engineered for high-growth markets.",
     icon: "fmcg",
   },
   {
     name: "Textile & Fashion",
-    description: "Fabric-led ventures balancing modern expression with commercial clarity.",
+    description: "Design-forward textile ventures with global reach.",
     icon: "fashion",
   },
   {
     name: "Business Advisory",
-    description: "Commercial guidance across market entry, operations, and growth architecture.",
+    description: "Cross-border strategy, market entry, and governance.",
     icon: "advisory",
   },
   {
     name: "Entertainment",
-    description: "Narrative-driven media and experiences that connect culture with audiences.",
+    description: "Content and experience platforms for the new economy.",
     icon: "entertainment",
   },
 ];
 
-function SectorIcon({ icon }: { icon: Sector["icon"] }) {
+type SectorIconName = (typeof sectors)[number]["icon"];
+
+function SectorIcon({ icon }: { icon: SectorIconName }) {
   const common = {
     fill: "none",
     stroke: "currentColor",
@@ -52,37 +57,35 @@ function SectorIcon({ icon }: { icon: Sector["icon"] }) {
     strokeLinejoin: "round" as const,
   };
 
-  const icons: Record<Sector["icon"], React.ReactNode> = {
+  const icons: Record<SectorIconName, React.ReactNode> = {
     design: (
       <>
-        <path {...common} d="M6 20h16" />
-        <path {...common} d="M8 20V8l8-4 6 3v13" />
-        <path {...common} d="M12 12h4" />
+        <path {...common} d="M4 8h16v12H4z" />
+        <path {...common} d="M8 4h12v12" />
       </>
     ),
     construction: (
       <>
         <path {...common} d="M5 20h14" />
-        <path {...common} d="M9 20V9h8v11" />
-        <path {...common} d="M17 9V5h4v15" />
+        <path {...common} d="M8 20V9h8v11" />
+        <path {...common} d="M11 9V5h7v15" />
       </>
     ),
     technology: (
       <>
-        <rect {...common} x="5" y="6" width="14" height="10" rx="2" />
-        <path {...common} d="M10 20h4" />
-        <path {...common} d="M12 16v4" />
+        <rect {...common} x="6" y="6" width="12" height="12" rx="2" />
+        <path {...common} d="M3 10h3M18 10h3M3 14h3M18 14h3M10 3v3M14 3v3M10 18v3M14 18v3" />
       </>
     ),
     fmcg: (
       <>
-        <path {...common} d="M10 4h4" />
-        <path {...common} d="M9 4v6l-2 10h10l-2-10V4" />
+        <path {...common} d="M9 4h6" />
+        <path {...common} d="M8 4v5l-2 11h12L16 9V4" />
       </>
     ),
     fashion: (
       <>
-        <path {...common} d="M9 5l3 3 3-3 4 3-2 4-3-1v9H10v-9l-3 1-2-4 4-3Z" />
+        <path {...common} d="M9 5l3 3 3-3 4 3-2 4-3-1v9H10v-9l-3 1-2-4z" />
       </>
     ),
     advisory: (
@@ -94,38 +97,89 @@ function SectorIcon({ icon }: { icon: Sector["icon"] }) {
     ),
     entertainment: (
       <>
-        <path {...common} d="M7 6h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
-        <path {...common} d="m11 10 4 3-4 3v-6Z" />
+        <rect {...common} x="4" y="6" width="16" height="12" rx="2" />
+        <path {...common} d="m11 10 4 2.5-4 2.5z" />
       </>
     ),
   };
 
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.sectorIcon}>
+    <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
       {icons[icon]}
     </svg>
   );
 }
 
 export function OurSectorsSection() {
-  const introRef = useScrollReveal<HTMLDivElement>("fadeUp");
-  const gridRef = useScrollReveal<HTMLDivElement>("staggerChildren", { stagger: 0.08 });
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const introRef = useRef<HTMLDivElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const context = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-sector-card]", section);
+
+      if (prefersReducedMotion) {
+        gsap.set([introRef.current, cards], { opacity: 1, y: 0 });
+        return;
+      }
+
+      gsap.set(introRef.current, { opacity: 0, y: 20 });
+      gsap.set(cards, { opacity: 0, y: 30 });
+
+      gsap.to(introRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.09,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 82%",
+          once: true,
+        },
+      });
+    }, section);
+
+    return () => {
+      context.revert();
+    };
+  }, []);
 
   return (
-    <section id="sectors" className={`${styles.sectionShell} ${styles.sectorsSection}`}>
+    <section id="sectors" ref={sectionRef} className={styles.section}>
       <div className="container">
-        <div ref={introRef} className={styles.sectionIntro} data-reveal="fadeUp">
-          <span className={styles.sectionLabel}>What We Do</span>
-          <h2 className={styles.sectionHeading}>Seven sectors. One vision.</h2>
+        <div ref={introRef} className={styles.intro}>
+          <span className={styles.label}>What We Do</span>
+          <h2 className={styles.heading}>Seven sectors. One vision.</h2>
         </div>
 
-        <div ref={gridRef} className={styles.sectorsGrid} data-reveal="staggerChildren">
+        <div ref={gridRef} className={styles.grid}>
           {sectors.map((sector) => (
-            <article key={sector.name} className={styles.sectorCard}>
+            <article key={sector.name} data-sector-card className={styles.card}>
               <SectorIcon icon={sector.icon} />
-              <h3 className={styles.sectorName}>{sector.name}</h3>
-              <p className={styles.sectorDescription}>{sector.description}</p>
-              <div className={styles.sectorBorder} />
+              <h3 className={styles.name}>{sector.name}</h3>
+              <p className={styles.description}>{sector.description}</p>
             </article>
           ))}
         </div>

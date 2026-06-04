@@ -1,9 +1,9 @@
 export {
-  CredibilityNumbersSection,
-  GlobalPresenceSection,
   HeroSection,
-  OurSectorsSection,
-  OurVenturesSection,
-  PartnerCTASection,
-  PhilosophyQuoteSection,
+  NumbersSection,
+  QuoteSection,
+  SectorsSection,
+  VenturesSection,
+  PresenceSection,
+  CtaSection,
 } from "../index";

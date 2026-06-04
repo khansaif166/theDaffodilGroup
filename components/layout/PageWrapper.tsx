@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 import styles from "./PageWrapper.module.css";
 
@@ -17,7 +17,7 @@ export function PageWrapper({ children }: PageWrapperProps) {
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     if (prefersReducedMotion) {

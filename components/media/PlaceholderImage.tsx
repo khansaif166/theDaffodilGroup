@@ -26,7 +26,7 @@ function buildPlaceholder(label: string) {
       <rect width="1600" height="1000" fill="url(#grid)" opacity="0.45"/>
       <circle cx="1280" cy="220" r="220" fill="rgba(209,169,114,0.16)"/>
       <circle cx="360" cy="820" r="250" fill="rgba(14,13,12,0.05)"/>
-      <text x="800" y="470" text-anchor="middle" fill="#2b2723" font-family="Arial, sans-serif" font-size="32" opacity="0.78">[IMAGE]</text>
+      <text x="800" y="470" text-anchor="middle" fill="#2b2723" font-family="Arial, sans-serif" font-size="32" opacity="0.78">${label}</text>
       <line x1="730" y1="520" x2="870" y2="520" stroke="#d1a972" stroke-width="3"/>
     </svg>
   `)}`;
@@ -38,15 +38,19 @@ export function PlaceholderImage({
   priority = false,
   className = "",
 }: PlaceholderImageProps) {
+  const imageSrc = buildPlaceholder(label);
+
   return (
     <Image
-      src={buildPlaceholder(label)}
+      src={imageSrc}
       alt={label}
       fill
       unoptimized
       priority={priority}
       sizes={sizes}
       loading={priority ? "eager" : "lazy"}
+      placeholder="blur"
+      blurDataURL={imageSrc}
       className={`${styles.image} ${className}`.trim()}
     />
   );

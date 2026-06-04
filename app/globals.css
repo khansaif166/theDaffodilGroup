@@ -237,16 +237,6 @@ a:focus-visible {
   .section-inner {
     width: min(calc(100% - 32px), var(--container-width));
   }
-
-  .hero-shell {
-    padding-top: calc(var(--nav-height) + 3rem);
-    padding-bottom: 5rem;
-  }
-
-  .content-section p,
-  .lede {
-    font-size: var(--font-size-base);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,64 +1,123 @@
 "use client";
 
-import { useScrollReveal } from "@/lib";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
 
 import styles from "../AboutPage.module.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const principles = [
   {
     title: "Capital Discipline",
-    body: "We allocate with care, preferring durable opportunities over momentum-driven expansion.",
+    body: "We allocate capital with precision — funding only ventures that demonstrate clear strategic value and scalable potential.",
     icon: (
       <>
-        <path d="M6 18h12" />
-        <path d="M9 18V8h6v10" />
-        <path d="M12 8V5" />
+        <path d="M4 18h16" />
+        <path d="M7 18v-7" />
+        <path d="M12 18V8" />
+        <path d="M17 18V5" />
+        <path d="m14 8 3-3 3 3" />
       </>
     ),
   },
   {
     title: "Active Governance",
-    body: "We stay close to our ventures with practical oversight, clear decision-making, and long-view accountability.",
+    body: "Beyond ownership, we are partners in execution — providing leadership, mentorship, and operational support to every business in our portfolio.",
     icon: (
       <>
-        <rect x="5" y="6" width="14" height="12" rx="2" />
-        <path d="M9 10h6" />
-        <path d="M9 14h6" />
+        <path d="M12 3 6 5.5v5c0 4 2.4 7.3 6 8.5 3.6-1.2 6-4.5 6-8.5v-5z" />
+        <path d="m9.5 11.5 1.8 1.8 3.6-3.8" />
       </>
     ),
   },
   {
-    title: "Long-term Value",
-    body: "Our aim is to shape ecosystems that strengthen over time rather than chase short-lived advantages.",
+    title: "Long-term Orientation",
+    body: "We measure success in decades, not quarters. Every decision is made with sustainable, enduring value in mind.",
     icon: (
       <>
-        <path d="M6 18c3-7 9-11 12-12" />
-        <path d="M14 6h4v4" />
-        <path d="M8 12c1.5 1.5 3 3 4 6" />
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 7v5l3 2" />
       </>
     ),
   },
 ];
 
 export function OurApproachSection() {
-  const gridRef = useScrollReveal<HTMLDivElement>("staggerChildren", { stagger: 0.1 });
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const context = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-approach-card]", section);
+      const rules = gsap.utils.toArray<HTMLElement>("[data-approach-rule]", section);
+
+      if (prefersReducedMotion) {
+        gsap.set([cards, rules], { opacity: 1, y: 0, width: 32 });
+        return;
+      }
+
+      gsap.set(cards, { opacity: 0, y: 30 });
+      gsap.set(rules, { width: 0 });
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      timeline.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.15,
+        ease: "power2.out",
+      });
+
+      timeline.to(
+        rules,
+        {
+          width: 32,
+          duration: 0.4,
+          stagger: 0.15,
+          ease: "power2.out",
+        },
+        0,
+      );
+    }, section);
+
+    return () => {
+      context.revert();
+    };
+  }, []);
 
   return (
-    <section className={`${styles.section} ${styles.sectionDark}`}>
+    <section ref={sectionRef} className={`${styles.section} ${styles.sectionDark}`}>
       <div className="container">
-        <div className={styles.sectionIntro}>
-          <span className={styles.eyebrow}>Our Approach</span>
-          <h2 className={`${styles.heading} ${styles.headingLight}`}>
-            Stewardship with conviction and restraint.
+        <div className={styles.approachIntro}>
+          <span className={styles.sectionLabel}>How We Operate</span>
+          <h2 className={`${styles.sectionHeading} ${styles.sectionHeadingLight}`}>
+            Strategy with execution.
           </h2>
         </div>
 
-        <div ref={gridRef} className={styles.principlesGrid} data-reveal="staggerChildren">
+        <div className={styles.approachGrid}>
           {principles.map((principle) => (
-            <article key={principle.title} className={styles.principleCard}>
+            <article key={principle.title} data-approach-card className={styles.approachCard}>
+              <div data-approach-rule className={styles.approachRule} />
               <svg
                 viewBox="0 0 24 24"
-                className={styles.principleIcon}
+                className={styles.approachIcon}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
@@ -68,8 +127,8 @@ export function OurApproachSection() {
               >
                 {principle.icon}
               </svg>
-              <h3 className={styles.principleTitle}>{principle.title}</h3>
-              <p className={styles.principleBody}>{principle.body}</p>
+              <h3 className={styles.approachTitle}>{principle.title}</h3>
+              <p className={styles.approachBody}>{principle.body}</p>
             </article>
           ))}
         </div>

@@ -1,7 +1,13 @@
 export { CredibilityNumbersSection } from "./sections/CredibilityNumbersSection";
+export { NumbersSection } from "./NumbersSection";
 export { GlobalPresenceSection } from "./sections/GlobalPresenceSection";
+export { PresenceSection } from "./PresenceSection";
 export { HeroSection } from "./sections/HeroSection";
 export { OurSectorsSection } from "./sections/OurSectorsSection";
+export { SectorsSection } from "./SectorsSection";
 export { OurVenturesSection } from "./sections/OurVenturesSection";
+export { VenturesSection } from "./VenturesSection";
 export { PartnerCTASection } from "./sections/PartnerCTASection";
+export { CtaSection } from "./CtaSection";
 export { PhilosophyQuoteSection } from "./sections/PhilosophyQuoteSection";
+export { QuoteSection } from "./QuoteSection";

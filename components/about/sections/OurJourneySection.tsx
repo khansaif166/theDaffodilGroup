@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import { useScrollReveal } from "@/lib";
+import { useLayoutEffect, useRef } from "react";
 
 import styles from "../AboutPage.module.css";
 
@@ -13,93 +11,140 @@ gsap.registerPlugin(ScrollTrigger);
 const milestones = [
   {
     year: "2020",
-    title: "The Group Takes Shape",
+    title: "The Daffodil Group Founded",
     description:
-      "The Daffodil Group was established with a mandate to build a diversified holdings platform grounded in design, advisory, and measured expansion.",
+      "Established as a multi-sector holding entity with a vision to build globally competitive ventures.",
   },
   {
     year: "2021",
-    title: "Operational Foundations",
+    title: "La' Daffodil Business Solutions Launched",
     description:
-      "The group strengthened its operating frameworks, partnerships, and venture criteria to support more active stewardship across businesses.",
+      "Advisory and market expansion services launched across India and UAE.",
   },
   {
     year: "2022",
-    title: "Portfolio Expansion",
+    title: "Hayat Home Established",
     description:
-      "New consumer and advisory opportunities were brought into the portfolio, broadening sector exposure while preserving strategic focus.",
+      "Design-led interior architecture venture launched in Saudi Arabia.",
   },
   {
     year: "2023",
-    title: "Regional Presence",
+    title: "Yellow Saffron & The Reading Box",
     description:
-      "The group deepened relationships across India, the Gulf, and West Africa, aligning ventures with regional demand and market access.",
+      "Consumer and EdTech ventures added to the growing portfolio.",
   },
   {
     year: "2024",
-    title: "Ecosystem Thinking",
+    title: "West Africa Expansion",
     description:
-      "The Daffodil Group increasingly positioned itself as a builder of connected platforms, where knowledge, distribution, and governance reinforce one another.",
+      "Operations extended into West African markets, deepening cross-border capabilities.",
+  },
+  {
+    year: "2025",
+    title: "Daffodil Stories Goes Live",
+    description:
+      "Digital content and storytelling platform launched to serve the modern media economy.",
   },
 ];
 
 export function OurJourneySection() {
-  const sectionRef = useScrollReveal<HTMLElement>("fadeUp");
+  const sectionRef = useRef<HTMLElement | null>(null);
   const lineRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = sectionRef.current;
-    const line = lineRef.current;
+
+    if (!section) {
+      return;
+    }
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!section || !line) {
-      return;
-    }
+    const context = gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>("[data-milestone]", section);
 
-    if (prefersReducedMotion) {
-      gsap.set(line, { scaleY: 1 });
-      return;
-    }
+      if (prefersReducedMotion) {
+        gsap.set(lineRef.current, { scaleY: 1 });
+        items.forEach((item) => {
+          gsap.set(item.querySelector("[data-dot]"), { scale: 1 });
+          gsap.set(item.querySelector("[data-content]"), { opacity: 1, x: 0 });
+        });
+        return;
+      }
 
-    const tween = gsap.to(line, {
-      scaleY: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 75%",
-        end: "bottom 80%",
-        scrub: true,
-      },
-    });
+      gsap.to(lineRef.current, {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 70%",
+          scrub: 1,
+        },
+      });
+
+      items.forEach((item) => {
+        const dot = item.querySelector("[data-dot]");
+        const content = item.querySelector("[data-content]");
+
+        gsap.set(dot, { scale: 0, transformOrigin: "center center" });
+        gsap.set(content, { opacity: 0, x: 20 });
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: "top 75%",
+            once: true,
+          },
+        });
+
+        timeline.to(dot, {
+          scale: 1,
+          duration: 0.35,
+          ease: "power2.out",
+        });
+
+        timeline.to(
+          content,
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            ease: "power2.out",
+          },
+          0.05,
+        );
+      });
+    }, section);
 
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      context.revert();
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className={`${styles.section} ${styles.sectionCream}`}
-      data-reveal="fadeUp"
+      className={`${styles.section} ${styles.sectionCream} ${styles.timelineSection}`}
     >
       <div className="container">
-        <div className={styles.sectionIntro}>
-          <span className={styles.eyebrow}>Our Story</span>
-          <h2 className={styles.heading}>A journey built on patient expansion.</h2>
+        <div className={styles.timelineHeader}>
+          <span className={styles.sectionLabel}>Our Journey</span>
         </div>
 
         <div className={styles.timelineWrap}>
           <div className={styles.timelineTrack} />
           <div ref={lineRef} className={styles.timelineLine} />
+
           <div className={styles.timelineList}>
             {milestones.map((milestone) => (
-              <article key={milestone.year} className={styles.timelineItem}>
-                <span className={styles.timelineDot} />
+              <article key={milestone.year} data-milestone className={styles.timelineItem}>
                 <p className={styles.timelineYear}>{milestone.year}</p>
-                <h3 className={styles.timelineTitle}>{milestone.title}</h3>
-                <p className={styles.timelineDesc}>{milestone.description}</p>
+                <span data-dot className={styles.timelineDot} />
+                <div data-content>
+                  <h3 className={styles.timelineTitle}>{milestone.title}</h3>
+                  <p className={styles.timelineDescription}>{milestone.description}</p>
+                </div>
               </article>
             ))}
           </div>

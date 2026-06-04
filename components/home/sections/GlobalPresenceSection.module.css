@@ -1,0 +1,119 @@
+.section {
+  padding: 120px 0;
+  background: var(--color-charcoal);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.copy {
+  max-width: 440px;
+}
+
+.label {
+  color: var(--color-gold);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 16px 0 0;
+  color: var(--color-white);
+  font-family: var(--font-display), serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.body {
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.countryList {
+  display: grid;
+  gap: 18px;
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.countryItem {
+  display: grid;
+  grid-template-columns: 10px minmax(0, auto) 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+.countryName {
+  color: var(--color-white);
+  font-size: 14px;
+}
+
+.region {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+}
+
+.mapWrap {
+  width: 100%;
+}
+
+.map {
+  width: 100%;
+  height: auto;
+}
+
+.mapFill {
+  fill: rgba(255, 255, 255, 0.06);
+}
+
+.mapBorder {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 0.5;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1;
+}
+
+.innerDot {
+  fill: var(--color-gold);
+}
+
+.mapLabel {
+  fill: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 0;
+  }
+}

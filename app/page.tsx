@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 import {
-  CredibilityNumbersSection,
-  GlobalPresenceSection,
+  CtaSection,
   HeroSection,
-  OurSectorsSection,
-  OurVenturesSection,
-  PartnerCTASection,
-  PhilosophyQuoteSection,
+  NumbersSection,
+  PresenceSection,
+  QuoteSection,
+  SectorsSection,
+  VenturesSection,
 } from "@/components/home/page";
 import { createPageMetadata } from "@/lib";
 
@@ -22,12 +22,12 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <CredibilityNumbersSection />
-      <PhilosophyQuoteSection />
-      <OurSectorsSection />
-      <OurVenturesSection />
-      <GlobalPresenceSection />
-      <PartnerCTASection />
+      <NumbersSection />
+      <QuoteSection />
+      <SectorsSection />
+      <VenturesSection />
+      <PresenceSection />
+      <CtaSection />
     </>
   );
 }

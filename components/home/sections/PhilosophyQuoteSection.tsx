@@ -1,59 +1,81 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
 
-import { useScrollReveal } from "@/lib";
-
-import styles from "../HomePage.module.css";
+import styles from "./PhilosophyQuoteSection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function PhilosophyQuoteSection() {
-  const sectionRef = useScrollReveal<HTMLElement>("fadeUp");
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const quoteRef = useRef<HTMLQuoteElement | null>(null);
+  const attributionRef = useRef<HTMLParagraphElement | null>(null);
   const ruleRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = sectionRef.current;
-    const rule = ruleRef.current;
+
+    if (!section) {
+      return;
+    }
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!section || !rule) {
-      return;
-    }
+    const context = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set([quoteRef.current, attributionRef.current], { opacity: 1, y: 0 });
+        gsap.set(ruleRef.current, { width: 64 });
+        return;
+      }
 
-    if (prefersReducedMotion) {
-      gsap.set(rule, { width: 60 });
-      return;
-    }
+      gsap.set([quoteRef.current, attributionRef.current], { opacity: 0, y: 30 });
+      gsap.set(ruleRef.current, { width: 0 });
 
-    const tween = gsap.to(rule, {
-      width: 60,
-      duration: 0.6,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 85%",
-        once: true,
-      },
-    });
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          once: true,
+        },
+      });
+
+      timeline.to([quoteRef.current, attributionRef.current], {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "power2.out",
+        stagger: 0.08,
+      });
+
+      timeline.to(
+        ruleRef.current,
+        {
+          width: 64,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        0.4,
+      );
+    }, section);
 
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      context.revert();
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.quoteSection} data-reveal="fadeUp">
-      <div className={styles.quoteBlock}>
-        <div ref={ruleRef} className={styles.quoteRule} />
-        <blockquote className={styles.quoteText}>
-          We don&apos;t just build businesses. We build ecosystems that outlast
-          trends.
+    <section ref={sectionRef} className={styles.section}>
+      <div className={styles.inner}>
+        <blockquote ref={quoteRef} className={styles.quote}>
+          We don&apos;t just build businesses. We build ecosystems that outlast trends and
+          empower communities across borders.
         </blockquote>
-        <p className={styles.quoteAttribution}>— The Daffodil Group</p>
+        <p ref={attributionRef} className={styles.attribution}>
+          — The Daffodil Group
+        </p>
+        <div ref={ruleRef} className={styles.rule} />
       </div>
     </section>
   );

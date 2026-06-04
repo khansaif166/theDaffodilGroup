@@ -1,73 +1,138 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
-import { useScrollReveal } from "@/lib";
 
-import styles from "../HomePage.module.css";
-import type { Venture } from "../types";
+import styles from "./OurVenturesSection.module.css";
 
-const ventures: Venture[] = [
+gsap.registerPlugin(ScrollTrigger);
+
+const ventures = [
   {
     name: "La' Daffodil Business Solutions",
-    description: "Advisory-led solutions helping ambitious businesses structure growth with clarity.",
-    image: "[IMAGE: executive strategy session in refined boardroom setting]",
+    sector: "Business Advisory",
+    description: "Strategic advisory and market expansion across international borders.",
+    image: "Modern office interior with warm light and refined corporate minimalism.",
   },
   {
     name: "Hayat Home",
-    description: "Interior experiences rooted in thoughtful materiality and elevated everyday living.",
-    image: "[IMAGE: luxury living room with sculptural furniture and warm daylight]",
+    sector: "Design & Interior Architecture",
+    description:
+      "A design-led interior and fit-out company for residential and commercial spaces.",
+    image: "Premium interior space with warm tones and editorial residential styling.",
   },
   {
-    name: "Yellow Saffron",
-    description: "A contemporary FMCG brand balancing taste, trust, and modern packaging language.",
-    image: "[IMAGE: premium packaged food arrangement with warm editorial styling]",
+    name: "Yellow Saffron Company",
+    sector: "FMCG",
+    description: "A premium FMCG brand crafted for the modern consumer.",
+    image: "Premium consumer product composition with clean packaging and warm background.",
   },
   {
     name: "Daffodil Stories",
-    description: "Digital-first storytelling and strategic content systems crafted for modern brands.",
-    image: "[IMAGE: creative studio workspace with screens, notes, and cinematic lighting]",
+    sector: "Technology & Digital",
+    description: "A digital content and storytelling platform for the new age of media.",
+    image: "Minimal editorial content studio with screens and digital storytelling cues.",
   },
   {
     name: "The Reading Box",
-    description: "EdTech designed to make learning engaging, curated, and beautifully accessible.",
-    image: "[IMAGE: elegant reading corner with books, child learning tools, and soft light]",
+    sector: "Education & EdTech",
+    description: "An early learning concept nurturing curiosity in young minds.",
+    image: "Warm learning nook with children's books, soft light, and inviting textures.",
   },
 ];
 
 export function OurVenturesSection() {
-  const introRef = useScrollReveal<HTMLDivElement>("fadeUp");
-  const gridRef = useScrollReveal<HTMLDivElement>("staggerChildren", { stagger: 0.1 });
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const introRef = useRef<HTMLDivElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const context = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-venture-card]", section);
+
+      if (prefersReducedMotion) {
+        gsap.set([introRef.current, cards], { opacity: 1, y: 0 });
+        return;
+      }
+
+      gsap.set(introRef.current, { opacity: 0, y: 20 });
+      gsap.set(cards, { opacity: 0, y: 40 });
+
+      gsap.to(introRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 82%",
+          once: true,
+        },
+      });
+    }, section);
+
+    return () => {
+      context.revert();
+    };
+  }, []);
 
   return (
-    <section id="ventures" className={`${styles.sectionShell} ${styles.venturesSection}`}>
+    <section id="ventures" ref={sectionRef} className={styles.section}>
       <div className="container">
-        <div ref={introRef} className={styles.sectionIntro} data-reveal="fadeUp">
-          <span className={styles.sectionLabel}>Our Ventures</span>
-          <h2 className={styles.sectionHeading}>A portfolio built with range and restraint.</h2>
+        <div ref={introRef} className={styles.intro}>
+          <span className={styles.label}>Our Ventures</span>
+          <h2 className={styles.heading}>Five ventures. Each built to lead.</h2>
         </div>
 
-        <div className={styles.mobileScroller}>
-          <div ref={gridRef} className={styles.venturesGrid} data-reveal="staggerChildren">
-            {ventures.map((venture) => (
-              <article key={venture.name} className={styles.ventureCard}>
-                <div className={styles.ventureImage}>
-                  <PlaceholderImage
-                    label={venture.image}
-                    sizes="(max-width: 760px) 82vw, (max-width: 1100px) 50vw, 33vw"
-                  />
-                </div>
-                <div className={styles.ventureContent}>
-                  <h3 className={styles.ventureName}>{venture.name}</h3>
-                  <p className={styles.ventureDescription}>{venture.description}</p>
-                  <Link href="/#contact" className={styles.ventureLink}>
-                    Discover More <span className={styles.ventureArrow}>↗</span>
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div ref={gridRef} className={styles.grid}>
+          {ventures.map((venture, index) => (
+            <article
+              key={venture.name}
+              data-venture-card
+              className={`${styles.card} ${index < 2 ? styles.cardLarge : styles.cardSmall}`}
+            >
+              <div className={styles.imageWrap}>
+                <PlaceholderImage
+                  label={venture.image}
+                  sizes="(max-width: 768px) 84vw, (max-width: 1100px) 50vw, 33vw"
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.content}>
+                <span className={styles.tag}>{venture.sector}</span>
+                <h3 className={styles.name}>{venture.name}</h3>
+                <p className={styles.description}>{venture.description}</p>
+                <Link href="/ventures" className={styles.link}>
+                  Explore <span className={styles.arrow}>→</span>
+                </Link>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
