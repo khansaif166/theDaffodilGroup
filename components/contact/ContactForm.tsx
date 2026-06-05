@@ -23,6 +23,9 @@ const initialState: FormState = {
   message: "",
 };
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const contactEmail = "hello@thedaffodilgroup.com";
+
 type FieldProps = {
   id: keyof FormState;
   label: string;
@@ -59,35 +62,64 @@ export function ContactForm() {
   const [error, setError] = useState("");
   const [focusedField, setFocusedField] = useState<keyof FormState | null>(null);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
     setError("");
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const company = form.company.trim();
+    const country = form.country.trim();
+    const subject = form.subject.trim();
+    const message = form.message.trim();
 
-      const payload = (await response.json()) as { error?: string };
-
-      if (!response.ok) {
-        setError(payload.error ?? "Unable to send your message right now.");
-        setIsSubmitting(false);
-        return;
-      }
-
-      setIsSubmitted(true);
-      setForm(initialState);
-    } catch {
-      setError("Unable to send your message right now.");
-    } finally {
+    if (!name) {
+      setError("Please enter your full name.");
       setIsSubmitting(false);
+      return;
     }
+
+    if (!email || !emailPattern.test(email)) {
+      setError("Please enter a valid email address.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!country) {
+      setError("Please select your country.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!subject) {
+      setError("Please select a subject.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!message || message.length < 20) {
+      setError("Please include a message of at least 20 characters.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const emailSubject = subject ? `${subject} - ${name}` : `New Daffodil inquiry from ${name}`;
+    const emailBody = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Company: ${company || "Not provided"}`,
+      `Country: ${country}`,
+      `Subject: ${subject}`,
+      "",
+      message,
+    ].join("\n");
+
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+    setIsSubmitted(true);
+    setForm(initialState);
+    setIsSubmitting(false);
   };
 
   const resetForm = () => {
@@ -114,8 +146,8 @@ export function ContactForm() {
             >
               <h2 className={styles.successHeading}>Thank you.</h2>
               <p className={styles.successBody}>
-                We&apos;ve received your message and will be in touch within 1-2
-                business days.
+                Your email app has been opened with your message details. Send it there
+                and we&apos;ll be in touch within 1-2 business days.
               </p>
               <button type="button" onClick={resetForm} className={styles.resetLink}>
                 Send another message

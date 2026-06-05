@@ -1,4 +1,5 @@
 export {
+  HomePage,
   HeroSection,
   NumbersSection,
   QuoteSection,

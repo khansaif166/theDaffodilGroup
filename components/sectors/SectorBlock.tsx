@@ -173,7 +173,7 @@ export function SectorBlock({ sector }: SectorBlockProps) {
             <div ref={pillsRef} className={styles.pills}>
               {ventureLinks.length > 0 ? (
                 ventureLinks.map((venture) => (
-                  <Link key={venture.slug} href={`/ventures/${venture.slug}`} className={styles.pill}>
+                  <Link key={venture.slug} href={`/ventures/${venture.slug}/`} className={styles.pill}>
                     {venture.name}
                   </Link>
                 ))

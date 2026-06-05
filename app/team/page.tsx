@@ -6,7 +6,7 @@ export const metadata: Metadata = createPageMetadata({
   title: "Team | The Daffodil Group",
   description:
     "Meet the leadership and stewardship culture behind The Daffodil Group.",
-  path: "/team",
+  path: "/team/",
 });
 
 export default function TeamRoute() {

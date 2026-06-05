@@ -79,10 +79,10 @@ export function PartnerCTASection() {
             or learn more about our portfolio — we&apos;d love to hear from you.
           </p>
           <div className={styles.actions}>
-            <Link href="/contact" className={styles.primaryCta}>
+            <Link href="/contact/" className={styles.primaryCta}>
               Get in Touch
             </Link>
-            <Link href="/ventures" className={styles.secondaryCta}>
+            <Link href="/ventures/" className={styles.secondaryCta}>
               <span>Explore Ventures</span>
               <motion.span whileHover={{ x: 4 }} transition={{ duration: 0.3, ease: "easeOut" }}>
                 →

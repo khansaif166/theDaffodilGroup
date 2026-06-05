@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  CtaSection,
-  HeroSection,
-  NumbersSection,
-  PresenceSection,
-  QuoteSection,
-  SectorsSection,
-  VenturesSection,
-} from "@/components/home/page";
+import { HomePage } from "@/components/home/page";
 import { createPageMetadata } from "@/lib";
 
 export const metadata: Metadata = createPageMetadata({
@@ -18,16 +10,6 @@ export const metadata: Metadata = createPageMetadata({
   path: "/",
 });
 
-export default function HomePage() {
-  return (
-    <main>
-      <HeroSection />
-      <NumbersSection />
-      <QuoteSection />
-      <SectorsSection />
-      <VenturesSection />
-      <PresenceSection />
-      <CtaSection />
-    </main>
-  );
+export default function HomeRoute() {
+  return <HomePage />;
 }

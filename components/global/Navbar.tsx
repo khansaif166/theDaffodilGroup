@@ -12,13 +12,21 @@ import { gsap } from "@/lib/gsap";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
-  { href: "/about", label: "About", id: "about" },
-  { href: "/ventures", label: "Ventures", id: "ventures" },
-  { href: "/sectors", label: "Sectors", id: "sectors" },
+  { href: "/about/", label: "About", id: "about" },
+  { href: "/ventures/", label: "Ventures", id: "ventures" },
+  { href: "/sectors/", label: "Sectors", id: "sectors" },
   { href: "/#presence", label: "Presence", id: "presence" },
 ];
 
-const overlayLinks = [...navLinks, { href: "/contact", label: "Contact", id: "contact" }];
+const overlayLinks = [...navLinks, { href: "/contact/", label: "Contact", id: "contact" }];
+
+function normalizePath(path: string) {
+  if (path === "/") {
+    return path;
+  }
+
+  return path.endsWith("/") ? path.slice(0, -1) : path;
+}
 
 const socials = [
   {
@@ -63,7 +71,8 @@ export function Navbar() {
   const topLineRef = useRef<HTMLSpanElement | null>(null);
   const middleLineRef = useRef<HTMLSpanElement | null>(null);
   const bottomLineRef = useRef<HTMLSpanElement | null>(null);
-  const isContactPage = pathname === "/contact";
+  const normalizedPathname = normalizePath(pathname);
+  const isContactPage = normalizedPathname === "/contact";
   const textColor = isScrolled
     ? "var(--color-charcoal)"
     : theme === "dark"
@@ -192,9 +201,10 @@ export function Navbar() {
           <nav className={styles.desktopNav} aria-label="Primary">
             {navLinks.map((link) => {
               const isHashLink = link.href.startsWith("/#");
+              const normalizedHref = isHashLink ? link.href : normalizePath(link.href);
               const isActive = isHashLink
                 ? pathname === "/" && activeSection === link.id
-                : pathname === link.href;
+                : normalizedPathname === normalizedHref;
 
               return (
                 <Link
@@ -209,7 +219,7 @@ export function Navbar() {
           </nav>
 
           <div className={styles.actions}>
-            <Link href="/contact" className={styles.contactCta} data-cursor="link">
+            <Link href="/contact/" className={styles.contactCta} data-cursor="link">
               Contact
             </Link>
 

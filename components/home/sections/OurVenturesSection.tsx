@@ -129,7 +129,7 @@ export function OurVenturesSection() {
                 <span className={styles.tag}>{venture.sector}</span>
                 <h3 className={styles.name}>{venture.name}</h3>
                 <p className={styles.description}>{venture.description}</p>
-                <Link href="/ventures" className={styles.link}>
+                <Link href="/ventures/" className={styles.link}>
                   Explore <span className={styles.arrow}>→</span>
                 </Link>
               </div>

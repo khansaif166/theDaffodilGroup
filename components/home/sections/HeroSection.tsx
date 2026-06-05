@@ -187,10 +187,10 @@ export function HeroSection() {
           </p>
 
           <div ref={actionsRef} className={styles.actions}>
-            <Link href="/ventures" className={styles.primaryCta}>
+            <Link href="/ventures/" className={styles.primaryCta}>
               Explore Our Ventures
             </Link>
-            <Link href="/about" className={styles.secondaryCta}>
+            <Link href="/about/" className={styles.secondaryCta}>
               <span>Our Story</span>
               <motion.span
                 ref={secondaryArrowRef}

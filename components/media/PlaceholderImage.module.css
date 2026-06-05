@@ -1,4 +1,14 @@
 .image {
   object-fit: cover;
   object-position: center;
+  opacity: 0;
+  transform: scale(1.015);
+  transition:
+    opacity 0.45s ease,
+    transform 0.7s ease;
+}
+
+.loaded {
+  opacity: 1;
+  transform: scale(1);
 }

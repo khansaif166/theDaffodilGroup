@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import styles from "./PlaceholderImage.module.css";
 
@@ -49,6 +52,12 @@ export function PlaceholderImage({
   const resolvedAlt = alt ?? label ?? "Decorative image";
   const imageSrc = src ?? buildPlaceholder(resolvedAlt);
   const isPlaceholder = !src;
+  const blurDataURL = isPlaceholder ? imageSrc : buildPlaceholder("");
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [imageSrc]);
 
   return (
     <Image
@@ -60,10 +69,11 @@ export function PlaceholderImage({
       sizes={sizes}
       quality={quality}
       loading={priority ? "eager" : "lazy"}
-      placeholder={isPlaceholder ? "blur" : "empty"}
-      blurDataURL={isPlaceholder ? imageSrc : undefined}
+      placeholder="blur"
+      blurDataURL={blurDataURL}
+      onLoad={() => setIsLoaded(true)}
       style={objectPosition ? { objectPosition } : undefined}
-      className={`${styles.image} ${className}`.trim()}
+      className={`${styles.image} ${isLoaded ? styles.loaded : ""} ${className}`.trim()}
     />
   );
 }

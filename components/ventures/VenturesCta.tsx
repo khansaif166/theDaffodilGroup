@@ -56,7 +56,7 @@ export function VenturesCta() {
           Explore opportunities to collaborate with The Daffodil Group across
           ventures, growth platforms, and market-building initiatives.
         </p>
-        <Link href="/contact" className={styles.button}>
+        <Link href="/contact/" className={styles.button}>
           Get in Touch
         </Link>
       </div>

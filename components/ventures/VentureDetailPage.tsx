@@ -118,7 +118,7 @@ export function VentureDetailPage({ venture }: VentureDetailPageProps) {
           <h2 className={styles.relatedTitle}>Related Ventures</h2>
           <div className={styles.relatedGrid}>
             {related.map((item) => (
-              <Link key={item.slug} href={`/ventures/${item.slug}`} className={styles.relatedCard}>
+              <Link key={item.slug} href={`/ventures/${item.slug}/`} className={styles.relatedCard}>
                 <div className={styles.relatedImage}>
                   <PlaceholderImage
                     src={item.image}

@@ -64,10 +64,10 @@ export function SectorsBottomCta() {
         </p>
 
         <div data-cta-item className={styles.actions}>
-          <Link href="/contact" className={styles.primary}>
+          <Link href="/contact/" className={styles.primary}>
             Start a Conversation
           </Link>
-          <Link href="/ventures" className={styles.secondary}>
+          <Link href="/ventures/" className={styles.secondary}>
             <span>View Our Ventures</span>
             <span className={styles.arrow} aria-hidden="true">
               →

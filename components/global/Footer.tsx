@@ -6,10 +6,10 @@ import { ventures } from "@/data/ventures";
 import styles from "./Footer.module.css";
 
 const quickLinks = [
-  { href: "/about", label: "About" },
-  { href: "/ventures", label: "Ventures" },
-  { href: "/sectors", label: "Sectors" },
-  { href: "/contact", label: "Contact" },
+  { href: "/about/", label: "About" },
+  { href: "/ventures/", label: "Ventures" },
+  { href: "/sectors/", label: "Sectors" },
+  { href: "/contact/", label: "Contact" },
 ];
 
 const socials = [

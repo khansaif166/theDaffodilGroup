@@ -20,14 +20,14 @@ export function generateMetadata({
     return createPageMetadata({
       title: "Venture | The Daffodil Group",
       description: "Explore ventures from The Daffodil Group.",
-      path: `/ventures/${params.slug}`,
+      path: `/ventures/${params.slug}/`,
     });
   }
 
   return createPageMetadata({
     title: `${venture.name} | The Daffodil Group`,
     description: venture.tagline,
-    path: `/ventures/${venture.slug}`,
+    path: `/ventures/${venture.slug}/`,
   });
 }
 

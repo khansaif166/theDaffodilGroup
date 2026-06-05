@@ -1,3 +1,4 @@
+export { HomePage } from "./HomePage";
 export { CredibilityNumbersSection } from "./sections/CredibilityNumbersSection";
 export { NumbersSection } from "./NumbersSection";
 export { GlobalPresenceSection } from "./sections/GlobalPresenceSection";

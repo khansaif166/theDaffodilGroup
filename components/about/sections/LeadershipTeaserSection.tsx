@@ -82,7 +82,7 @@ export function LeadershipTeaserSection() {
           </div>
         </div>
 
-        <Link href="/team" className={styles.teamLink}>
+        <Link href="/team/" className={styles.teamLink}>
           <span>Meet the full team</span>
           <span className={styles.teamArrow}>→</span>
         </Link>
