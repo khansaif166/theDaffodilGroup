@@ -8,6 +8,7 @@
     "build": "next build",
     "postbuild": "rm -rf .next/cache",
     "build:clean": "rm -rf .next && next build",
+    "cf:build": "npx @cloudflare/next-on-pages@1",
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf .next"
