@@ -3,12 +3,16 @@
 import gsap from "gsap";
 import { useLayoutEffect, useRef } from "react";
 
+import { PlaceholderImage } from "@/components";
+import { siteImages } from "@/data/siteImages";
+
 import styles from "./VenturesHero.module.css";
 
 const headingWords = ["Our", "Portfolio."];
 
 export function VenturesHero() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const imageRef = useRef<HTMLDivElement | null>(null);
   const subheadingRef = useRef<HTMLParagraphElement | null>(null);
   const bodyRef = useRef<HTMLParagraphElement | null>(null);
   const ruleRef = useRef<HTMLDivElement | null>(null);
@@ -26,18 +30,26 @@ export function VenturesHero() {
       const words = gsap.utils.toArray<HTMLElement>("[data-hero-word]", section);
 
       if (prefersReducedMotion) {
-        gsap.set([words, subheadingRef.current, bodyRef.current, ruleRef.current], {
+        gsap.set([imageRef.current, words, subheadingRef.current, bodyRef.current, ruleRef.current], {
           opacity: 1,
           y: 0,
+          scale: 1,
           clearProps: "all",
         });
         return;
       }
 
       gsap.set(words, { opacity: 0, y: 34 });
+      gsap.set(imageRef.current, { scale: 1.06 });
       gsap.set([subheadingRef.current, bodyRef.current, ruleRef.current], {
         opacity: 0,
         y: 20,
+      });
+
+      gsap.to(imageRef.current, {
+        scale: 1,
+        duration: 1.2,
+        ease: "power2.out",
       });
 
       gsap.to(words, {
@@ -81,6 +93,17 @@ export function VenturesHero() {
 
   return (
     <section ref={sectionRef} className={styles.hero}>
+      <div className={styles.heroMedia}>
+        <div ref={imageRef} className={styles.heroImage}>
+          <PlaceholderImage
+            src={siteImages.venturesHero.src}
+            alt={siteImages.venturesHero.alt}
+            sizes="100vw"
+            priority
+          />
+        </div>
+      </div>
+
       <div className={`container ${styles.inner}`}>
         <p className={styles.breadcrumb}>Home / Our Ventures</p>
         <h1 className={styles.heading}>

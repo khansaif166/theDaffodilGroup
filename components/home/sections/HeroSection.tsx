@@ -6,9 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
-import { PlaceholderImage } from "@/components";
-import { siteImages } from "@/data/siteImages";
-
 import styles from "./HeroSection.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -128,6 +125,39 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className={styles.heroSection}>
+      <div className={styles.mediaBackdrop}>
+        <div ref={imagePanelRef} className={styles.imagePanel}>
+          <div ref={imageRef} className={styles.imageInner}>
+            <video
+              className={styles.heroVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster="/images/hayat-living-room-wide.jpg"
+              aria-label="Luxury interior hero video"
+            >
+              <source src="/videos/home-hero.mp4" type="video/mp4" />
+              Your browser does not support the hero video.
+            </video>
+          </div>
+          <div ref={cardRef} className={styles.floatingCard}>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className={styles.globeIcon}
+            >
+              <circle cx="12" cy="12" r="8" />
+              <path d="M4 12h16" />
+              <path d="M12 4a12 12 0 0 0 0 16" />
+              <path d="M12 4a12 12 0 0 1 0 16" />
+            </svg>
+            <span>Presence across 4 continents</span>
+          </div>
+        </div>
+      </div>
+
       <div className={`container ${styles.heroGrid}`}>
         <div className={styles.copyColumn}>
           <div ref={labelRef} className={styles.labelRow}>
@@ -179,33 +209,6 @@ export function HeroSection() {
                 {item}
               </span>
             ))}
-          </div>
-        </div>
-
-        <div className={styles.mediaColumn}>
-          <div ref={dividerRef} className={styles.divider} />
-          <div ref={imagePanelRef} className={styles.imagePanel}>
-            <div ref={imageRef} className={styles.imageInner}>
-              <PlaceholderImage
-                src={siteImages.homeHero.src}
-                alt={siteImages.homeHero.alt}
-                sizes="(max-width: 980px) 100vw, 45vw"
-                priority
-              />
-            </div>
-            <div ref={cardRef} className={styles.floatingCard}>
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                className={styles.globeIcon}
-              >
-                <circle cx="12" cy="12" r="8" />
-                <path d="M4 12h16" />
-                <path d="M12 4a12 12 0 0 0 0 16" />
-                <path d="M12 4a12 12 0 0 1 0 16" />
-              </svg>
-              <span>Presence across 4 continents</span>
-            </div>
           </div>
         </div>
       </div>

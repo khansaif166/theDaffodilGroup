@@ -1,10 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
+import { useNavbarTheme } from "@/context/NavbarThemeContext";
 import { gsap } from "@/lib/gsap";
 
 import styles from "./Navbar.module.css";
@@ -50,25 +52,33 @@ const socials = [
   },
 ];
 
-function getFallbackTheme(pathname: string) {
-  if (pathname === "/about") {
-    return "light";
-  }
-
-  return "dark";
-}
-
 export function Navbar() {
   const pathname = usePathname();
+  const { theme } = useNavbarTheme();
   const prefersReducedMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("presence");
-  const [theme, setTheme] = useState<"light" | "dark">(getFallbackTheme(pathname));
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const topLineRef = useRef<HTMLSpanElement | null>(null);
   const middleLineRef = useRef<HTMLSpanElement | null>(null);
   const bottomLineRef = useRef<HTMLSpanElement | null>(null);
+  const isContactPage = pathname === "/contact";
+  const textColor = isScrolled
+    ? "var(--color-charcoal)"
+    : theme === "dark"
+      ? "#FFFFFF"
+      : "var(--color-charcoal)";
+  const useDarkHeroLogo = !isScrolled && theme === "dark";
+  const headerStyle = isScrolled
+    ? undefined
+    : isContactPage
+      ? {
+          background: "rgba(14,13,12,0.55)",
+          backdropFilter: "blur(8px)",
+          borderBottomColor: "rgba(255, 255, 255, 0.04)",
+        }
+      : undefined;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,27 +123,6 @@ export function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    const updateTheme = () => {
-      const main = document.querySelector("main[data-nav-theme]") as HTMLElement | null;
-      const nextTheme =
-        main?.dataset.navTheme === "light" || main?.dataset.navTheme === "dark"
-          ? (main.dataset.navTheme as "light" | "dark")
-          : getFallbackTheme(pathname);
-
-      setTheme(nextTheme);
-    };
-
-    updateTheme();
-
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.body, { childList: true, subtree: true, attributes: true });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [pathname]);
-
-  useEffect(() => {
     document.body.dataset.menuOpen = isMenuOpen ? "true" : "false";
 
     return () => {
@@ -171,14 +160,33 @@ export function Navbar() {
 
   return (
     <>
+      {/* 
+        Page              Hero bg    useSetNavbarTheme
+        /                  Cream      "light" (default)
+        /about             Charcoal   "dark"
+        /ventures          Cream      "light" (default)
+        /ventures/[slug]   Dark img   "dark"
+        /sectors           Cream      "light" (default)
+        /contact           Split      "dark" + tinted glass
+      */}
       <header
-        className={`${styles.navbar} ${isScrolled ? styles.scrolled : styles.transparent} ${
-          theme === "light" && !isScrolled ? styles.lightTheme : styles.darkTheme
-        }`}
+        className={`${styles.navbar} ${isScrolled ? styles.scrolled : styles.transparent}`}
+        style={{ color: textColor, ...headerStyle }}
       >
         <div className={`container ${styles.inner}`}>
           <Link href="/" className={styles.logo} aria-label="The Daffodil Group home">
-            THE DAFFODIL GROUP
+            <Image
+              src={
+                useDarkHeroLogo
+                  ? "/images/logo-footer-dark-transparent.png"
+                  : "/images/logo-navbar-horizontal-transparent.png"
+              }
+              alt="The Daffodil Group"
+              width={240}
+              height={102}
+              className={styles.logoImage}
+              priority
+            />
           </Link>
 
           <nav className={styles.desktopNav} aria-label="Primary">
@@ -214,9 +222,9 @@ export function Navbar() {
               aria-controls="mobile-menu"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              <span ref={topLineRef} />
-              <span ref={middleLineRef} />
-              <span ref={bottomLineRef} />
+              <span ref={topLineRef} style={{ background: textColor }} />
+              <span ref={middleLineRef} style={{ background: textColor }} />
+              <span ref={bottomLineRef} style={{ background: textColor }} />
             </button>
           </div>
         </div>

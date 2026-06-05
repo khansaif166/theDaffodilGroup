@@ -8,6 +8,7 @@ type PlaceholderImageProps = {
   alt?: string;
   sizes: string;
   priority?: boolean;
+  quality?: number;
   className?: string;
   objectPosition?: string;
 };
@@ -41,6 +42,7 @@ export function PlaceholderImage({
   alt,
   sizes,
   priority = false,
+  quality = 88,
   className = "",
   objectPosition,
 }: PlaceholderImageProps) {
@@ -56,6 +58,7 @@ export function PlaceholderImage({
       unoptimized={isPlaceholder}
       priority={priority}
       sizes={sizes}
+      quality={quality}
       loading={priority ? "eager" : "lazy"}
       placeholder={isPlaceholder ? "blur" : "empty"}
       blurDataURL={isPlaceholder ? imageSrc : undefined}

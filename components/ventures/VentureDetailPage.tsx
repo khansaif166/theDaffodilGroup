@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button, PlaceholderImage } from "@/components";
 import { useScrollReveal } from "@/lib";
 import { ventures, type VentureRecord } from "@/data/ventures";
+import { useSetNavbarTheme } from "@/hooks/useSetNavbarTheme";
 
 import styles from "./VenturesPage.module.css";
 
@@ -18,6 +19,7 @@ type VentureDetailPageProps = {
 };
 
 export function VentureDetailPage({ venture }: VentureDetailPageProps) {
+  useSetNavbarTheme("dark");
   const imageRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useScrollReveal<HTMLElement>("fadeIn");
   const bodyRef = useScrollReveal<HTMLDivElement>("fadeUp");

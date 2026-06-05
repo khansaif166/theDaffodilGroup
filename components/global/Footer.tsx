@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { ventures } from "@/data/ventures";
@@ -50,7 +51,13 @@ export function Footer() {
         <div className={styles.grid}>
           <div className={styles.brandColumn}>
             <Link href="/" className={styles.logo}>
-              THE DAFFODIL GROUP
+              <Image
+                src="/images/logo-footer-dark-transparent.png"
+                alt="The Daffodil Group"
+                width={300}
+                height={128}
+                className={styles.logoImage}
+              />
             </Link>
             <div className={styles.brandRule} />
             <p className={styles.tagline}>Building ventures that outlast trends.</p>

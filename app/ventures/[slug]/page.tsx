@@ -43,7 +43,7 @@ export default function VentureDetailRoute({
   }
 
   return (
-    <main data-nav-theme="light">
+    <main>
       <VentureDetailPage venture={venture} />
     </main>
   );

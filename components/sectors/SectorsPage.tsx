@@ -1,78 +1,61 @@
 "use client";
 
-import { useState } from "react";
-
-import { useScrollReveal } from "@/lib";
 import { sectors } from "@/data/sectors";
+import { useSetNavbarTheme } from "@/hooks/useSetNavbarTheme";
+import { useEffect, useState } from "react";
 
-import styles from "./SectorsPage.module.css";
+import { SectorBlock } from "./SectorBlock";
+import { SectorsBottomCta } from "./SectorsBottomCta";
+import { SectorsHero } from "./SectorsHero";
+import { SectorsIndexBar } from "./SectorsIndexBar";
 
 export function SectorsPage() {
-  const [openSlug, setOpenSlug] = useState(sectors[0].slug);
-  const introRef = useScrollReveal<HTMLDivElement>("fadeUp");
-  const listRef = useScrollReveal<HTMLDivElement>("staggerChildren", { stagger: 0.08 });
+  useSetNavbarTheme("dark");
+  const [activeSectorId, setActiveSectorId] = useState(sectors[0].id);
+
+  useEffect(() => {
+    const sectionElements = sectors
+      .map((sector) => document.getElementById(sector.id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (sectionElements.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry?.target.id) {
+          setActiveSectorId(visibleEntry.target.id);
+        }
+      },
+      {
+        rootMargin: "-28% 0px -48% 0px",
+        threshold: [0.2, 0.35, 0.5, 0.7],
+      },
+    );
+
+    sectionElements.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
-    <main data-nav-theme="dark">
-      <section className={styles.hero}>
-        <div className="container">
-          <span className={styles.eyebrow}>Sectors</span>
-          <h1 className={styles.heading}>Where we build.</h1>
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <div className="container">
-          <div ref={introRef} className={styles.intro} data-reveal="fadeUp">
-            <span className={styles.eyebrow}>Sector Coverage</span>
-            <p className={styles.body}>
-              Our sector focus reflects a portfolio philosophy built on range,
-              adjacency, and disciplined expansion. Each vertical is treated as
-              part of a broader operating ecosystem.
-            </p>
-          </div>
-
-          <div ref={listRef} className={styles.accordion} data-reveal="staggerChildren">
-            {sectors.map((sector) => {
-              const isOpen = sector.slug === openSlug;
-
-              return (
-                <article key={sector.slug} className={styles.accordionItem}>
-                  <button
-                    type="button"
-                    className={styles.accordionButton}
-                    aria-expanded={isOpen}
-                    onClick={() => setOpenSlug(isOpen ? "" : sector.slug)}
-                  >
-                    <div>
-                      <h2 className={styles.accordionTitle}>{sector.name}</h2>
-                      <p className={styles.accordionSummary}>{sector.summary}</p>
-                    </div>
-                    <span className={styles.accordionToggle}>{isOpen ? "−" : "+"}</span>
-                  </button>
-
-                  <div
-                    className={`${styles.accordionPanel} ${isOpen ? styles.accordionPanelOpen : ""}`}
-                  >
-                    <div className={styles.accordionInner}>
-                      <div className={styles.accordionContent}>
-                        <p className={styles.accordionDescription}>{sector.description}</p>
-                        <div className={styles.capabilities}>
-                          {sector.capabilities.map((capability) => (
-                            <span key={capability} className={styles.capability}>
-                              {capability}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+    <main>
+      <SectorsHero />
+      <SectorsIndexBar
+        activeId={activeSectorId}
+        items={sectors.map(({ id, name }) => ({ id, name }))}
+      />
+      {sectors.map((sector) => (
+        <SectorBlock key={sector.id} sector={sector} />
+      ))}
+      <SectorsBottomCta />
     </main>
   );
 }

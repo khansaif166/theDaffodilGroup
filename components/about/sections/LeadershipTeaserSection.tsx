@@ -31,6 +31,10 @@ export function LeadershipTeaserSection() {
     const context = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-leader-card]", section);
 
+      if (cards.length === 0) {
+        return;
+      }
+
       if (prefersReducedMotion) {
         gsap.set(cards, { opacity: 1, y: 0 });
         return;
