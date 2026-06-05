@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
+import { siteImages } from "@/data/siteImages";
 
 import styles from "./HeroSection.module.css";
 
@@ -186,7 +187,8 @@ export function HeroSection() {
           <div ref={imagePanelRef} className={styles.imagePanel}>
             <div ref={imageRef} className={styles.imageInner}>
               <PlaceholderImage
-                label="Premium architectural interior with warm natural light, cream palette, and minimal luxury details."
+                src={siteImages.homeHero.src}
+                alt={siteImages.homeHero.alt}
                 sizes="(max-width: 980px) 100vw, 45vw"
                 priority
               />

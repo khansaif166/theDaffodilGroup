@@ -11,7 +11,7 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function TeamRoute() {
   return (
-    <main className="content-section section-white">
+    <main className="content-section section-white" data-nav-theme="dark">
       <div className="section-inner">
         <p className="eyebrow">Team</p>
         <h2>Leadership profiles will be introduced here in a later phase.</h2>

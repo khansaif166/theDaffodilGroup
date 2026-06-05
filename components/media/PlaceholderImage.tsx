@@ -3,10 +3,13 @@ import Image from "next/image";
 import styles from "./PlaceholderImage.module.css";
 
 type PlaceholderImageProps = {
-  label: string;
+  label?: string;
+  src?: string;
+  alt?: string;
   sizes: string;
   priority?: boolean;
   className?: string;
+  objectPosition?: string;
 };
 
 function buildPlaceholder(label: string) {
@@ -34,23 +37,29 @@ function buildPlaceholder(label: string) {
 
 export function PlaceholderImage({
   label,
+  src,
+  alt,
   sizes,
   priority = false,
   className = "",
+  objectPosition,
 }: PlaceholderImageProps) {
-  const imageSrc = buildPlaceholder(label);
+  const resolvedAlt = alt ?? label ?? "Decorative image";
+  const imageSrc = src ?? buildPlaceholder(resolvedAlt);
+  const isPlaceholder = !src;
 
   return (
     <Image
       src={imageSrc}
-      alt={label}
+      alt={resolvedAlt}
       fill
-      unoptimized
+      unoptimized={isPlaceholder}
       priority={priority}
       sizes={sizes}
       loading={priority ? "eager" : "lazy"}
-      placeholder="blur"
-      blurDataURL={imageSrc}
+      placeholder={isPlaceholder ? "blur" : "empty"}
+      blurDataURL={isPlaceholder ? imageSrc : undefined}
+      style={objectPosition ? { objectPosition } : undefined}
       className={`${styles.image} ${className}`.trim()}
     />
   );

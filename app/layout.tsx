@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 
-import { CursorEffect, Footer, Navbar, PageLoader, PageWrapper } from "@/components";
 import { createPageMetadata, sharedMetadata } from "@/lib/metadata";
+import { CustomCursor } from "@/components/global/CustomCursor";
+import { Footer } from "@/components/global/Footer";
+import { Navbar } from "@/components/global/Navbar";
+import { PageTransition } from "@/components/global/PageTransition";
 
 import "./globals.css";
 
@@ -39,13 +42,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body>
-        <PageLoader />
-        <CursorEffect />
-        <PageWrapper>
-          <Navbar />
-          {children}
-          <Footer />
-        </PageWrapper>
+        <CustomCursor />
+        <Navbar />
+        <PageTransition>{children}</PageTransition>
+        <Footer />
       </body>
     </html>
   );

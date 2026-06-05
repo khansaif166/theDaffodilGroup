@@ -69,7 +69,8 @@ export function VentureDetailPage({ venture }: VentureDetailPageProps) {
           <div className={styles.detailImageFrame}>
             <div ref={imageRef} className={styles.detailImage}>
               <PlaceholderImage
-                label={venture.image}
+                src={venture.image}
+                alt={venture.imageAlt}
                 sizes="100vw"
                 priority
               />
@@ -118,7 +119,8 @@ export function VentureDetailPage({ venture }: VentureDetailPageProps) {
               <Link key={item.slug} href={`/ventures/${item.slug}`} className={styles.relatedCard}>
                 <div className={styles.relatedImage}>
                   <PlaceholderImage
-                    label={item.image}
+                    src={item.image}
+                    alt={item.imageAlt}
                     sizes="(max-width: 1024px) 100vw, 33vw"
                   />
                 </div>

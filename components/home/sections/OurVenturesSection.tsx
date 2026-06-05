@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
+import { siteImages } from "@/data/siteImages";
 
 import styles from "./OurVenturesSection.module.css";
 
@@ -16,32 +17,32 @@ const ventures = [
     name: "La' Daffodil Business Solutions",
     sector: "Business Advisory",
     description: "Strategic advisory and market expansion across international borders.",
-    image: "Modern office interior with warm light and refined corporate minimalism.",
+    image: siteImages.homeVentures.business,
   },
   {
     name: "Hayat Home",
     sector: "Design & Interior Architecture",
     description:
       "A design-led interior and fit-out company for residential and commercial spaces.",
-    image: "Premium interior space with warm tones and editorial residential styling.",
+    image: siteImages.homeVentures.hayat,
   },
   {
     name: "Yellow Saffron Company",
     sector: "FMCG",
     description: "A premium FMCG brand crafted for the modern consumer.",
-    image: "Premium consumer product composition with clean packaging and warm background.",
+    image: siteImages.homeVentures.yellowSaffron,
   },
   {
     name: "Daffodil Stories",
     sector: "Technology & Digital",
     description: "A digital content and storytelling platform for the new age of media.",
-    image: "Minimal editorial content studio with screens and digital storytelling cues.",
+    image: siteImages.homeVentures.daffodilStories,
   },
   {
     name: "The Reading Box",
     sector: "Education & EdTech",
     description: "An early learning concept nurturing curiosity in young minds.",
-    image: "Warm learning nook with children's books, soft light, and inviting textures.",
+    image: siteImages.homeVentures.readingBox,
   },
 ];
 
@@ -118,7 +119,8 @@ export function OurVenturesSection() {
             >
               <div className={styles.imageWrap}>
                 <PlaceholderImage
-                  label={venture.image}
+                  src={venture.image.src}
+                  alt={venture.image.alt}
                   sizes="(max-width: 768px) 84vw, (max-width: 1100px) 50vw, 33vw"
                   className={styles.image}
                 />

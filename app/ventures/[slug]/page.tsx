@@ -42,5 +42,9 @@ export default function VentureDetailRoute({
     notFound();
   }
 
-  return <VentureDetailPage venture={venture} />;
+  return (
+    <main data-nav-theme="light">
+      <VentureDetailPage venture={venture} />
+    </main>
+  );
 }

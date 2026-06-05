@@ -1,0 +1,136 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.large {
+  grid-column: span 3;
+  min-height: 520px;
+}
+
+.standard {
+  grid-column: span 2;
+  min-height: 400px;
+}
+
+.imageWrap {
+  position: relative;
+  height: 65%;
+  min-height: 0;
+  overflow: hidden;
+  background: #e9e0d4;
+}
+
+.image {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: #0e0d0c;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px 24px;
+  border-left: 2px solid transparent;
+  transition: border-left-color 0.3s ease;
+}
+
+.tag {
+  margin-bottom: 8px;
+  color: var(--color-gold);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.name {
+  margin: 0;
+  color: var(--color-charcoal);
+  font-family: var(--font-display), serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.1;
+  transition: transform 0.4s ease;
+}
+
+.description {
+  margin: 8px 0 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 18px;
+  color: var(--color-charcoal);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.08);
+}
+
+.card:hover .overlay {
+  opacity: 0.35;
+}
+
+.card:hover .name {
+  transform: translateY(-4px);
+}
+
+.card:hover .content {
+  border-left-color: var(--color-gold);
+}
+
+.card:hover .arrow {
+  transform: translateX(6px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -2px;
+}
+
+@media (max-width: 1120px) {
+  .large,
+  .standard {
+    grid-column: span 1;
+  }
+
+  .large {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .large,
+  .standard {
+    min-height: auto;
+  }
+
+  .imageWrap {
+    aspect-ratio: 4 / 3;
+    height: auto;
+  }
+}

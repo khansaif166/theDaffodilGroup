@@ -1,0 +1,84 @@
+.root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.dot,
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-charcoal);
+  z-index: 9999;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    width 0.3s ease,
+    height 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.ring {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--color-gold);
+  background: transparent;
+  z-index: 9998;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    opacity 0.2s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.dotHidden {
+  width: 0;
+  height: 0;
+}
+
+.ringLink {
+  width: 47.6px;
+  height: 47.6px;
+  background: rgba(209, 169, 114, 0.1);
+}
+
+.dotImage {
+  width: 52px;
+  height: 52px;
+  background: rgba(209, 169, 114, 0.15);
+}
+
+.ringImage {
+  width: 52px;
+  height: 52px;
+  background: rgba(209, 169, 114, 0.15);
+  border-color: var(--color-gold);
+}
+
+.viewText {
+  opacity: 0;
+  color: var(--color-charcoal);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease;
+}
+
+.viewTextVisible {
+  opacity: 1;
+}

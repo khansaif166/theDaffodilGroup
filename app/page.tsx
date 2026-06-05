@@ -20,7 +20,7 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function HomePage() {
   return (
-    <>
+    <main data-nav-theme="dark">
       <HeroSection />
       <NumbersSection />
       <QuoteSection />
@@ -28,6 +28,6 @@ export default function HomePage() {
       <VenturesSection />
       <PresenceSection />
       <CtaSection />
-    </>
+    </main>
   );
 }

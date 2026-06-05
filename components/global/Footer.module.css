@@ -1,0 +1,170 @@
+.footer {
+  background: var(--color-charcoal);
+  padding: 80px 0 40px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.75fr 1.2fr;
+  gap: 3rem;
+}
+
+.logo {
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.brandRule {
+  width: 40px;
+  height: 1px;
+  margin: 16px 0;
+  background: var(--color-gold);
+}
+
+.tagline {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-display), serif;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.socials {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.socialLink {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s ease;
+}
+
+.socialLink:hover {
+  color: var(--color-white);
+}
+
+.socialLink svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.label {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.linkList,
+.ventureLinks {
+  display: grid;
+  gap: 12px;
+}
+
+.footerLink,
+.emailLink,
+.ventureLink,
+.bottomLinks a {
+  position: relative;
+  width: fit-content;
+  transition: color 0.25s ease;
+}
+
+.footerLink {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.footerLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+.footerLink:hover,
+.emailLink:hover,
+.ventureLink:hover,
+.bottomLinks a:hover {
+  color: var(--color-white);
+}
+
+.footerLink:hover::after {
+  transform: scaleX(1);
+}
+
+.emailLink {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.offices {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ventureLinks {
+  margin-top: 18px;
+}
+
+.ventureLink {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bottomBar p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+}
+
+.bottomLinks {
+  display: flex;
+  gap: 14px;
+}
+
+.bottomLinks a {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+  }
+}

@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
+import { siteImages } from "@/data/siteImages";
 
 import styles from "../AboutPage.module.css";
 
@@ -120,8 +121,10 @@ export function WhoWeAreSection() {
         <div className={styles.whoImageFrame}>
           <div ref={imageRef} className={styles.whoImageInner}>
             <PlaceholderImage
-              label="Close-up editorial image of hands reviewing documents in a warm desaturated tone."
+              src={siteImages.aboutWhoWeAre.src}
+              alt={siteImages.aboutWhoWeAre.alt}
               sizes="(max-width: 1100px) 100vw, 40vw"
+              objectPosition="60% center"
             />
           </div>
         </div>

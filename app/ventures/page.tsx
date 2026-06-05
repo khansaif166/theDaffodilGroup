@@ -11,5 +11,9 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function VenturesRoute() {
-  return <VenturesListingPage />;
+  return (
+    <main data-nav-theme="dark">
+      <VenturesListingPage />
+    </main>
+  );
 }

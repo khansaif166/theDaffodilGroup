@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
+import { siteImages } from "@/data/siteImages";
 
 import styles from "../AboutPage.module.css";
 
@@ -79,7 +80,8 @@ export function AboutHeroSection() {
       <div className={styles.heroMedia}>
         <div ref={imageRef} className={styles.heroImage}>
           <PlaceholderImage
-            label="Aerial city skyline at golden hour with warm tones and a wide cinematic Dubai or Mumbai aesthetic."
+            src={siteImages.aboutHero.src}
+            alt={siteImages.aboutHero.alt}
             sizes="100vw"
             priority
           />

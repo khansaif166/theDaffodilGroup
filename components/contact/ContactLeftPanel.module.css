@@ -1,0 +1,165 @@
+.panel {
+  position: relative;
+  min-height: 100svh;
+  background: var(--color-charcoal);
+  color: var(--color-white);
+}
+
+.inner {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--nav-height) + 40px) 60px 80px;
+}
+
+.topBlock {
+  max-width: 420px;
+}
+
+.label {
+  margin: 0 0 18px;
+  color: var(--color-gold);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32ch;
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-display), serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.word {
+  display: inline-block;
+}
+
+.subcopy {
+  max-width: 360px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  margin: 40px 0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.details {
+  display: grid;
+  gap: 20px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  margin-top: 11px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  flex: 0 0 auto;
+}
+
+.detailCopy {
+  display: grid;
+  gap: 4px;
+}
+
+.detailLabel {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.detailValue {
+  margin: 0;
+  color: var(--color-white);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+a.detailValue {
+  transition: color 0.2s ease;
+}
+
+a.detailValue:hover {
+  color: var(--color-gold);
+}
+
+.socialBlock {
+  display: grid;
+  gap: 16px;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease;
+}
+
+.socialLink:hover {
+  color: var(--color-gold);
+}
+
+.socialLink svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footerMark {
+  position: absolute;
+  left: 60px;
+  bottom: 40px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+}
+
+@media (max-width: 960px) {
+  .panel {
+    min-height: auto;
+  }
+
+  .inner {
+    padding: calc(var(--nav-height) + 32px) 24px 88px;
+  }
+
+  .footerMark {
+    left: 24px;
+    bottom: 28px;
+  }
+}

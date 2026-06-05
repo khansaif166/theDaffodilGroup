@@ -57,15 +57,6 @@ main {
   background: rgba(209, 169, 114, 0.24);
 }
 
-body[data-cursor-hover="true"] [class*="CursorEffect_dot"] {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0) !important;
-}
-
-body[data-cursor-hover="true"] [class*="CursorEffect_ring"] {
-  transform: translate(-50%, -50%) scale(1.42) !important;
-}
-
 .container {
   width: min(calc(100% - 48px), var(--container-width));
   margin: 0 auto;
@@ -243,7 +234,7 @@ a:focus-visible {
   *,
   *::before,
   *::after {
-    animation: none !important;
+    animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
+import { siteImages } from "@/data/siteImages";
 
 import styles from "./PartnerCTASection.module.css";
 
@@ -92,7 +93,8 @@ export function PartnerCTASection() {
 
         <div ref={imageRef} className={styles.imagePanel}>
           <PlaceholderImage
-            label="Professional meeting room with warm light and editorial corporate atmosphere."
+            src={siteImages.partnerCta.src}
+            alt={siteImages.partnerCta.alt}
             sizes="(max-width: 980px) 100vw, 50vw"
           />
         </div>

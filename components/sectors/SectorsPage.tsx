@@ -13,7 +13,7 @@ export function SectorsPage() {
   const listRef = useScrollReveal<HTMLDivElement>("staggerChildren", { stagger: 0.08 });
 
   return (
-    <>
+    <main data-nav-theme="dark">
       <section className={styles.hero}>
         <div className="container">
           <span className={styles.eyebrow}>Sectors</span>
@@ -73,6 +73,6 @@ export function SectorsPage() {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "rm -rf .next && next dev",
     "build": "next build",
+    "build:clean": "rm -rf .next && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf .next"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "countup.js": "^2.9.0",
     "framer-motion": "^11.3.19",
     "gsap": "^3.12.5",
