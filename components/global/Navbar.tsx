@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { useNavbarTheme } from "@/context/NavbarThemeContext";
 import { gsap } from "@/lib/gsap";
@@ -59,6 +59,19 @@ const socials = [
     ),
   },
 ];
+
+function scrollToHashTarget(hash: string) {
+  const targetId = hash.replace("#", "");
+  const target = document.getElementById(targetId);
+
+  if (!target) {
+    return false;
+  }
+
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.history.replaceState(null, "", `/${hash}`);
+  return true;
+}
 
 export function Navbar() {
   const pathname = usePathname();
@@ -167,6 +180,19 @@ export function Navbar() {
     timeline.to(bottomLine, { y: isMenuOpen ? -7 : 0, rotate: isMenuOpen ? -45 : 0 }, 0);
   }, [isMenuOpen]);
 
+  const handleHashNavigation = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith("/#")) {
+      return;
+    }
+
+    const hash = href.slice(1);
+
+    if (pathname === "/") {
+      event.preventDefault();
+      scrollToHashTarget(hash);
+    }
+  };
+
   return (
     <>
       {/* 
@@ -211,6 +237,7 @@ export function Navbar() {
                   key={link.id}
                   href={link.href}
                   className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+                  onClick={(event) => handleHashNavigation(event, link.href)}
                 >
                   {link.label}
                 </Link>
@@ -264,7 +291,14 @@ export function Navbar() {
                       ease: [0.22, 1, 0.36, 1],
                     }}
                   >
-                    <Link href={link.href} className={styles.mobileLink} onClick={() => setIsMenuOpen(false)}>
+                    <Link
+                      href={link.href}
+                      className={styles.mobileLink}
+                      onClick={(event) => {
+                        handleHashNavigation(event, link.href);
+                        setIsMenuOpen(false);
+                      }}
+                    >
                       {link.label}
                     </Link>
                   </motion.div>

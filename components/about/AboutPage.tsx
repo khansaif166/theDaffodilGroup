@@ -3,7 +3,7 @@
 import { useSetNavbarTheme } from "@/hooks/useSetNavbarTheme";
 
 import { AboutHeroSection } from "./sections/AboutHeroSection";
-import { LeadershipTeaserSection } from "./sections/LeadershipTeaserSection";
+import { ClosingManifestoSection } from "./sections/ClosingManifestoSection";
 import { MissionVisionSection } from "./sections/MissionVisionSection";
 import { OurApproachSection } from "./sections/OurApproachSection";
 import { OurJourneySection } from "./sections/OurJourneySection";
@@ -19,7 +19,7 @@ export function AboutPage() {
       <WhoWeAreSection />
       <OurJourneySection />
       <OurApproachSection />
-      <LeadershipTeaserSection />
+      <ClosingManifestoSection />
     </main>
   );
 }

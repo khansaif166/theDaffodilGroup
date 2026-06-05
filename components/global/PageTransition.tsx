@@ -54,11 +54,44 @@ export function PageTransition({ children }: PageTransitionProps) {
   }, []);
 
   useEffect(() => {
+    const hash = window.location.hash;
+
+    if (hash) {
+      const scrollToHashTarget = () => {
+        const target = document.getElementById(hash.replace("#", ""));
+
+        if (!target) {
+          return false;
+        }
+
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(target, { immediate: true });
+        } else {
+          target.scrollIntoView({ behavior: "auto", block: "start" });
+        }
+
+        return true;
+      };
+
+      if (scrollToHashTarget()) {
+        return;
+      }
+
+      const frame = window.requestAnimationFrame(() => {
+        scrollToHashTarget();
+      });
+
+      return () => {
+        window.cancelAnimationFrame(frame);
+      };
+    }
+
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo({ top: 0, behavior: "auto" });
+      return;
     }
+
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, [pathname]);
 
   return (
