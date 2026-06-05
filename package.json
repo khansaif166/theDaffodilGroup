@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev:clean": "rm -rf .next && next dev",
     "build": "next build",
+    "postbuild": "rm -rf .next/cache",
     "build:clean": "rm -rf .next && next build",
     "start": "next start",
     "lint": "next lint",
