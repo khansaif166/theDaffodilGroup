@@ -65,7 +65,7 @@ export function PageTransition({ children }: PageTransitionProps) {
     <AnimatePresence mode="wait">
       <motion.div
         key={pathname}
-        initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 12 }}
+        initial={false}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: prefersReducedMotion ? 1 : 0, y: 0 }}
         transition={{
