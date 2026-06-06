@@ -224,9 +224,25 @@
     padding: calc(var(--nav-height) + 24px) 0 40px;
   }
 
+  .copyColumn {
+    max-width: none;
+    padding: 32px 0 0;
+  }
+
+  .headline {
+    font-size: clamp(38px, 12vw, 52px);
+  }
+
+  .subcopy {
+    max-width: none;
+    font-size: 14px;
+  }
+
   .actions {
     flex-direction: column;
     align-items: flex-start;
+    gap: 14px;
+    margin-top: 32px;
   }
 
   .primaryCta,
@@ -235,10 +251,42 @@
     justify-content: flex-start;
   }
 
+  .microStats {
+    gap: 12px 16px;
+  }
+
+  .microStat {
+    gap: 12px;
+  }
+
+  .microStat:not(:last-child)::after {
+    height: 16px;
+  }
+
   .floatingCard {
     right: 20px;
     bottom: 20px;
     left: 20px;
     max-width: none;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroGrid {
+    min-height: auto;
+  }
+
+  .headline {
+    font-size: clamp(34px, 11vw, 44px);
+  }
+
+  .microStats {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .microStat:not(:last-child)::after {
+    display: none;
   }
 }

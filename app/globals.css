@@ -5,12 +5,19 @@
   --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  overflow-x: hidden;
   min-width: 320px;
   background: var(--color-cream);
   color: var(--color-text);
@@ -23,6 +30,11 @@ body {
 
 body[data-menu-open="true"] {
   overflow: hidden;
+}
+
+body[data-menu-open="true"] main,
+body[data-menu-open="true"] footer {
+  pointer-events: none;
 }
 
 a {
@@ -47,7 +59,9 @@ img {
 }
 
 main {
-  overflow: clip;
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 [data-reveal] {
@@ -64,12 +78,19 @@ main {
 
 .container {
   width: min(calc(100% - 48px), var(--container-width));
+  max-width: 100%;
   margin: 0 auto;
 }
 
 .section-inner {
   width: min(calc(100% - 48px), var(--container-narrow));
+  max-width: 100%;
   margin: 0 auto;
+}
+
+.container > *,
+.section-inner > * {
+  min-width: 0;
 }
 
 .eyebrow {

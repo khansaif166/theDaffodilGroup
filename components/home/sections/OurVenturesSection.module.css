@@ -140,11 +140,15 @@
     display: flex;
     gap: 16px;
     overflow-x: auto;
+    width: 100%;
     padding-bottom: 8px;
+    padding-inline: 1px;
     scrollbar-width: thin;
+    scroll-snap-type: x proximity;
   }
 
   .card {
     min-width: min(84vw, 320px);
+    scroll-snap-align: start;
   }
 }

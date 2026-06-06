@@ -726,4 +726,13 @@
   .manifestoCardTitle {
     font-size: 24px;
   }
+
+  .leadershipScroller {
+    width: 100%;
+    padding-inline: 1px;
+  }
+
+  .leaderCard {
+    width: min(78vw, 240px);
+  }
 }
