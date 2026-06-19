@@ -62,24 +62,22 @@ export function MissionVisionSection() {
         <div ref={leftRef} className={styles.missionColumn}>
           <div className={styles.columnRule} />
           <span className={styles.columnLabel}>Our Mission</span>
-          <h2 className={styles.columnHeading}>Growing ventures that transform.</h2>
+          <h2 className={styles.columnHeading}>Creating sustainable business ecosystems.</h2>
           <p className={styles.columnBody}>
-            To grow transformative ventures across diverse sectors by combining
-            strategic leadership, execution excellence, and global collaboration. We
-            deliver impactful solutions, enable cross-border opportunities, and create
-            long-term value.
+            To create sustainable business ecosystems through innovation,
+            strategic investments, operational excellence, and cross-border
+            collaboration.
           </p>
         </div>
 
         <div ref={rightRef} className={styles.missionColumn}>
           <div className={styles.columnRule} />
           <span className={styles.columnLabel}>Our Vision</span>
-          <h2 className={styles.columnHeading}>A worldwide business ecosystem.</h2>
+          <h2 className={styles.columnHeading}>Globally respected enterprises.</h2>
           <p className={styles.columnBody}>
-            To establish The Daffodil Group as a worldwide business ecosystem that
-            promotes innovation, nurtures strategic alliances, and generates
-            sustainable value across industries — empowering communities and
-            enterprises for generations.
+            To build globally respected enterprises that transform industries,
+            empower communities, and contribute meaningfully to economic
+            development.
           </p>
         </div>
       </div>

@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 import { PlaceholderImage } from "@/components";
 import type { SectorRecord } from "@/data/sectors";
-import { ventures } from "@/data/ventures";
 import { gsap } from "@/lib/gsap";
 
 import styles from "./SectorBlock.module.css";
@@ -20,16 +18,7 @@ export function SectorBlock({ sector }: SectorBlockProps) {
   const ruleRef = useRef<HTMLSpanElement | null>(null);
   const imageFrameRef = useRef<HTMLDivElement | null>(null);
   const imageInnerRef = useRef<HTMLDivElement | null>(null);
-  const pillsRef = useRef<HTMLDivElement | null>(null);
   const statsRef = useRef<HTMLDivElement | null>(null);
-
-  const ventureLinks = useMemo(
-    () =>
-      sector.ventures
-        .map((slug) => ventures.find((venture) => venture.slug === slug))
-        .filter((venture): venture is NonNullable<(typeof ventures)[number]> => Boolean(venture)),
-    [sector.ventures],
-  );
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -44,14 +33,16 @@ export function SectorBlock({ sector }: SectorBlockProps) {
       sector.contentSide === "left" ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)";
 
     const context = gsap.context(() => {
-      const pills = pillsRef.current ? Array.from(pillsRef.current.children) : [];
       const stats = statsRef.current ? Array.from(statsRef.current.children) : [];
 
       if (prefersReducedMotion) {
-        gsap.set(
-          [contentRef.current, ruleRef.current, imageFrameRef.current, pills, stats],
-          { opacity: 1, x: 0, y: 0, width: 32, clearProps: "all" },
-        );
+        gsap.set([contentRef.current, ruleRef.current, imageFrameRef.current, stats], {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          width: 32,
+          clearProps: "all",
+        });
         gsap.set(imageFrameRef.current, { clipPath: "inset(0 0 0 0)" });
         return;
       }
@@ -59,7 +50,6 @@ export function SectorBlock({ sector }: SectorBlockProps) {
       gsap.set(contentRef.current, { opacity: 0, x: contentX });
       gsap.set(ruleRef.current, { width: 0 });
       gsap.set(imageFrameRef.current, { clipPath: imageFrom });
-      gsap.set(pills, { opacity: 0, x: -10 });
       gsap.set(stats, { opacity: 0, y: 10 });
 
       gsap.to(contentRef.current, {
@@ -97,22 +87,6 @@ export function SectorBlock({ sector }: SectorBlockProps) {
           once: true,
         },
       });
-
-      if (pills.length > 0) {
-        gsap.to(pills, {
-          opacity: 1,
-          x: 0,
-          duration: 0.45,
-          stagger: 0.08,
-          delay: 0.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 75%",
-            once: true,
-          },
-        });
-      }
 
       if (stats.length > 0) {
         gsap.to(stats, {
@@ -166,21 +140,6 @@ export function SectorBlock({ sector }: SectorBlockProps) {
           <div className={styles.copy}>
             <p>{sector.bodyPara1}</p>
             <p>{sector.bodyPara2}</p>
-          </div>
-
-          <div className={styles.ventures}>
-            <span className={styles.venturesLabel}>Ventures</span>
-            <div ref={pillsRef} className={styles.pills}>
-              {ventureLinks.length > 0 ? (
-                ventureLinks.map((venture) => (
-                  <Link key={venture.slug} href={`/ventures/${venture.slug}/`} className={styles.pill}>
-                    {venture.name}
-                  </Link>
-                ))
-              ) : (
-                <span className={`${styles.pill} ${styles.pillMuted}`}>Coming Soon</span>
-              )}
-            </div>
           </div>
 
           <div ref={statsRef} className={styles.stats}>

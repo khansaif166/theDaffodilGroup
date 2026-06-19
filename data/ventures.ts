@@ -79,7 +79,7 @@ export const ventures: VentureRecord[] = [
       "Its portfolio strategy is grounded in consistency, recall, and a distinctive premium sensibility that translates across touchpoints.",
     ],
     offerings: ["Brand Development", "Product Launch", "Distribution Strategy"],
-    website: "https://example.com/yellow-saffron",
+    website: "https://www.yellowsaffroncompany.com/",
   },
   {
     slug: "daffodil-stories",

@@ -72,11 +72,14 @@ export function PartnerCTASection() {
     <section id="contact" ref={sectionRef} className={styles.section}>
       <div className={`container ${styles.grid}`}>
         <div ref={copyRef} className={styles.copy}>
-          <span className={styles.label}>Let&apos;s Build Together</span>
-          <h2 className={styles.heading}>Start a conversation with us.</h2>
+          <span className={styles.label}>Looking Ahead</span>
+          <h2 className={styles.heading}>Looking Ahead</h2>
           <p className={styles.body}>
-            Whether you&apos;re looking to enter a new market, explore a partnership,
-            or learn more about our portfolio — we&apos;d love to hear from you.
+            At the Daffodil Group, we are committed to expanding our global
+            footprint to build resilient businesses, foster meaningful
+            partnerships, and create opportunities. We don&apos;t just build
+            businesses; we build ecosystems that inspire growth and empower
+            communities.
           </p>
           <div className={styles.actions}>
             <Link href="/contact/" className={styles.primaryCta}>

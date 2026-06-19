@@ -107,7 +107,19 @@ export function OurVenturesSection() {
       <div className="container">
         <div ref={introRef} className={styles.intro}>
           <span className={styles.label}>Our Ventures</span>
-          <h2 className={styles.heading}>Five ventures. Each built to lead.</h2>
+          <h2 className={styles.heading}>Our Ventures</h2>
+          <p className={styles.body}>
+            Our Global Presence With operations, partnerships, and business
+            interests spanning Saudi Arabia, the United Arab Emirates, India, and
+            emerging international markets, The Daffodil Group is uniquely
+            positioned to bridge opportunities across regions.
+          </p>
+          <p className={styles.body}>
+            Our understanding of diverse business environments enables us to
+            support organizations seeking growth, expansion, and market access
+            while navigating the complexities of an increasingly interconnected
+            global economy.
+          </p>
         </div>
 
         <div ref={gridRef} className={styles.grid}>

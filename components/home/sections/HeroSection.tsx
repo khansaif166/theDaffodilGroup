@@ -11,11 +11,16 @@ import styles from "./HeroSection.module.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const headlineRows = [
-  ["Building", "Transformative"],
-  ["Ventures", "Globally."],
+  ["Building", "transformative"],
+  ["ventures", "globally."],
 ];
 
-const microStats = ["4 Countries", "7 Sectors", "Est. 2020"];
+const microStats = [
+  "25+ Years of Leadership",
+  "Multi-Sector Presence",
+  "Global Partnerships",
+  "Vision-Led Growth",
+];
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -153,7 +158,7 @@ export function HeroSection() {
               <path d="M12 4a12 12 0 0 0 0 16" />
               <path d="M12 4a12 12 0 0 1 0 16" />
             </svg>
-            <span>Presence across 4 continents</span>
+            <span>Diversified multinational holding company with global ambitions.</span>
           </div>
         </div>
       </div>
@@ -182,8 +187,9 @@ export function HeroSection() {
           </h1>
 
           <p ref={copyRef} className={styles.subcopy}>
-            A multi-sector holding group nurturing independent ventures across design,
-            technology, FMCG, and advisory services.
+            The Daffodil Group is a diversified multinational holding company with
+            interests spanning Business Advisory, Interior Architecture & Fit-Out,
+            Technology, FMCG, Education, Wellness, and Entertainment.
           </p>
 
           <div ref={actionsRef} className={styles.actions}>

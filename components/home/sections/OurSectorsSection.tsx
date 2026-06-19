@@ -10,38 +10,45 @@ gsap.registerPlugin(ScrollTrigger);
 
 const sectors = [
   {
-    name: "Design & Interior Architecture",
-    description: "Curating spaces that blend form, function, and feeling.",
+    name: "Business Advisory & Strategic Consulting",
+    description:
+      "Helping businesses expand, transform, and thrive through market intelligence, governance frameworks, operational efficiency, and investment advisory.",
     icon: "design",
   },
   {
-    name: "Construction & Fitout",
-    description: "End-to-end build solutions for residential and commercial.",
+    name: "Interior Architecture & Fit-Out",
+    description:
+      "Designing and delivering exceptional residential, hospitality, commercial, and mixed-use environments.",
     icon: "construction",
   },
   {
-    name: "Technology & Digital",
-    description: "Digital products and platforms built for scale.",
+    name: "Global Procurement",
+    description:
+      "Facilitating the sourcing and procurement of products, materials, and equipment from international and regional markets.",
     icon: "technology",
   },
   {
-    name: "FMCG",
-    description: "Consumer brands engineered for high-growth markets.",
+    name: "Entertainment, Technology & Digital Solutions",
+    description:
+      "Delivering innovative technology platforms, digital transformation services, smart solutions, and automation systems.",
     icon: "fmcg",
   },
   {
-    name: "Textile & Fashion",
-    description: "Design-forward textile ventures with global reach.",
+    name: "FMCG & Consumer Brands",
+    description:
+      "Developing premium consumer products focused on quality, sustainability, and market relevance.",
     icon: "fashion",
   },
   {
-    name: "Business Advisory",
-    description: "Cross-border strategy, market entry, and governance.",
+    name: "Education & Learning",
+    description:
+      "Creating impactful educational products and learning experiences for future generations.",
     icon: "advisory",
   },
   {
-    name: "Entertainment",
-    description: "Content and experience platforms for the new economy.",
+    name: "Wellness & Lifestyle",
+    description:
+      "Building wellness-focused brands that support healthier and more balanced lifestyles.",
     icon: "entertainment",
   },
 ];
@@ -112,6 +119,7 @@ function SectorIcon({ icon }: { icon: SectorIconName }) {
 
 export function OurSectorsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const principlesRef = useRef<HTMLDivElement | null>(null);
   const introRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
@@ -125,15 +133,46 @@ export function OurSectorsSection() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const context = gsap.context(() => {
+      const principleCards = gsap.utils.toArray<HTMLElement>("[data-principle-card]", section);
       const cards = gsap.utils.toArray<HTMLElement>("[data-sector-card]", section);
 
       if (prefersReducedMotion) {
-        gsap.set([introRef.current, cards], { opacity: 1, y: 0 });
+        gsap.set([principlesRef.current, introRef.current, principleCards, cards], {
+          opacity: 1,
+          y: 0,
+        });
         return;
       }
 
+      gsap.set(principlesRef.current, { opacity: 0, y: 20 });
+      gsap.set(principleCards, { opacity: 0, y: 24 });
       gsap.set(introRef.current, { opacity: 0, y: 20 });
       gsap.set(cards, { opacity: 0, y: 30 });
+
+      gsap.to(principlesRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 82%",
+          once: true,
+        },
+      });
+
+      gsap.to(principleCards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: principlesRef.current,
+          start: "top 84%",
+          once: true,
+        },
+      });
 
       gsap.to(introRef.current, {
         opacity: 1,
@@ -141,7 +180,7 @@ export function OurSectorsSection() {
         duration: 0.7,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: section,
+          trigger: introRef.current,
           start: "top 82%",
           once: true,
         },
@@ -169,9 +208,34 @@ export function OurSectorsSection() {
   return (
     <section id="sectors" ref={sectionRef} className={styles.section}>
       <div className="container">
+        <div ref={principlesRef} className={styles.principles}>
+          <article data-principle-card className={styles.principleCard}>
+            <span className={styles.principleLabel}>Our Vision</span>
+            <p className={styles.principleBody}>
+              To build globally respected enterprises that transform industries,
+              empower communities, and contribute meaningfully to economic
+              development.
+            </p>
+          </article>
+          <article data-principle-card className={styles.principleCard}>
+            <span className={styles.principleLabel}>Our Mission</span>
+            <p className={styles.principleBody}>
+              To create sustainable business ecosystems through innovation,
+              strategic investments, operational excellence, and cross-border
+              collaboration.
+            </p>
+          </article>
+          <article data-principle-card className={styles.principleCard}>
+            <span className={styles.principleLabel}>Our Values</span>
+            <p className={styles.principleBody}>
+              Integrity, Innovation, Excellence, Sustainability, Collaboration
+            </p>
+          </article>
+        </div>
+
         <div ref={introRef} className={styles.intro}>
           <span className={styles.label}>What We Do</span>
-          <h2 className={styles.heading}>Seven sectors. One vision.</h2>
+          <h2 className={styles.heading}>Sectors we Serve</h2>
         </div>
 
         <div ref={gridRef} className={styles.grid}>

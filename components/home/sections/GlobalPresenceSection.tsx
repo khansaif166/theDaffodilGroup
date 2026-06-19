@@ -102,15 +102,8 @@ export function GlobalPresenceSection() {
     <section id="presence" ref={sectionRef} className={styles.section}>
       <div className={`container ${styles.grid}`}>
         <div ref={copyRef} className={styles.copy}>
-          <span className={styles.label}>Where We Operate</span>
-          <h2 className={styles.heading}>
-            <span className={styles.headingLine}>Built for borders.</span>
-            <span className={`${styles.headingLine} ${styles.headingSoft}`}>Designed to scale.</span>
-          </h2>
-          <p className={styles.body}>
-            From South Asia to the Gulf and West Africa, we operate where growth
-            happens next.
-          </p>
+          <span className={styles.label}>Global Presence</span>
+          <h2 className={styles.heading}>Global Presence</h2>
 
           <div className={styles.divider} aria-hidden="true" />
 
