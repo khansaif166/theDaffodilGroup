@@ -50,7 +50,7 @@ export function CredibilityNumbersSection() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div ref={introRef} className={`container ${styles.intro}`}>
-        <span className={styles.label}>Section 2</span>
+        <span className={styles.label}>The Daffodil Group</span>
         <h2 className={styles.heading}>A House of Visionary Enterprises</h2>
         <p className={styles.body}>
           The Daffodil Group is a privately held company founded on the belief that

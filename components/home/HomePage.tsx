@@ -17,8 +17,8 @@ export function HomePage() {
     <main>
       <HeroSection />
       <NumbersSection />
-      <QuoteSection />
       <SectorsSection />
+      <QuoteSection />
       <VenturesSection />
       <PresenceSection />
       <CtaSection />
