@@ -13,10 +13,10 @@ import styles from "./Navbar.module.css";
 
 const navLinks = [
   { href: "/about/", label: "About", id: "about" },
-  { href: "/founder/", label: "Founder", id: "founder" },
   { href: "/ventures/", label: "Ventures", id: "ventures" },
   { href: "/sectors/", label: "Sectors", id: "sectors" },
   { href: "/#presence", label: "Presence", id: "presence" },
+  { href: "/founder/", label: "Founder", id: "founder" },
 ];
 
 const overlayLinks = [...navLinks, { href: "/contact/", label: "Contact", id: "contact" }];
