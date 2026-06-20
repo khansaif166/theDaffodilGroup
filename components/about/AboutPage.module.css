@@ -182,20 +182,26 @@
   max-width: 600px;
 }
 
-.editorialText {
+.whoNarrative {
   margin: 24px 0 0;
-  color: var(--color-charcoal);
-  font-family: var(--font-display), serif;
-  font-size: 22px;
-  line-height: 1.85;
+  max-width: 640px;
 }
 
-.editorialText p {
+.whoNarrative p {
   margin: 0;
+  color: rgba(14, 13, 12, 0.56);
+  font-size: 15px;
+  line-height: 1.8;
 }
 
-.editorialText p + p {
-  margin-top: 20px;
+.whoNarrative p + p {
+  margin-top: 18px;
+}
+
+.whoLead {
+  color: rgba(14, 13, 12, 0.74) !important;
+  font-size: 17px !important;
+  line-height: 1.85 !important;
 }
 
 .underlineAccent {
@@ -333,14 +339,60 @@
   margin-bottom: 56px;
 }
 
+.principlesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.principleCard {
+  min-height: 100%;
+  padding: 32px;
+  border: 1px solid rgba(14, 13, 12, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.valuesCard {
+  grid-column: 1 / -1;
+}
+
+.valuesList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+  margin-top: 20px;
+}
+
+.valueItem {
+  padding-top: 18px;
+  border-top: 1px solid rgba(209, 169, 114, 0.28);
+}
+
+.valueTitle {
+  margin: 0;
+  color: var(--color-charcoal);
+  font-family: var(--font-display), serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.valueBody {
+  margin: 10px 0 0;
+  color: rgba(14, 13, 12, 0.56);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
 .approachGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 40px;
 }
 
 .approachCard {
   padding-top: 0;
+  min-height: 100%;
 }
 
 .approachRule {
@@ -397,11 +449,11 @@
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: 56px;
-  align-items: start;
+  align-items: center;
 }
 
 .manifestoIntro {
-  max-width: 620px;
+  max-width: 760px;
 }
 
 .manifestoHeading {
@@ -417,7 +469,7 @@
 }
 
 .manifestoBody {
-  max-width: 520px;
+  max-width: 720px;
   margin: 28px 0 0;
   color: rgba(255, 255, 255, 0.68);
   font-size: 15px;
@@ -445,73 +497,99 @@
   text-transform: uppercase;
 }
 
-.manifestoLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 36px;
-  color: var(--color-white);
-  font-size: 13px;
-  font-weight: 500;
+.presenceVisual {
+  width: 100%;
 }
 
-.manifestoStack {
-  display: grid;
-  gap: 18px;
-  padding-top: 28px;
-}
-
-.manifestoCard {
+.presenceMapFrame {
   position: relative;
-  padding: 28px 28px 30px;
-  border: 1px solid rgba(209, 169, 114, 0.18);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(16px);
-  transform: translateX(var(--card-offset));
-  transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    background 0.35s ease;
+  min-height: 420px;
+  padding: 28px;
+  border: 1px solid rgba(209, 169, 114, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
 }
 
-.manifestoCard:nth-child(2) {
-  margin-left: 36px;
+.presenceMap {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.3;
+  filter: brightness(0) invert(1);
 }
 
-.manifestoCard:nth-child(3) {
-  margin-left: 72px;
+.presenceMarker {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
 }
 
-.manifestoCard:hover {
-  border-color: rgba(209, 169, 114, 0.42);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
-  transform: translateX(calc(var(--card-offset) - 8px));
+.presenceDot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 8px rgba(209, 169, 114, 0.12);
+  transform: translate(-50%, -50%);
 }
 
-.manifestoIndex {
-  display: inline-block;
-  color: rgba(209, 169, 114, 0.82);
+.presenceLabel {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.92);
   font-size: 11px;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.presenceLabelRight {
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+
+.presenceLabelLeft {
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+
+.presenceLabelAbove {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.presenceLegend {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.presenceLegendItem {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(209, 169, 114, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.presenceLegendTitle {
+  color: var(--color-gold);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.manifestoCardTitle {
-  margin: 18px 0 0;
-  color: var(--color-white);
-  font-family: var(--font-display), serif;
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1.05;
-}
-
-.manifestoCardBody {
-  max-width: 420px;
-  margin: 12px 0 0;
-  color: rgba(255, 255, 255, 0.68);
+.presenceLegendText {
+  color: rgba(255, 255, 255, 0.72);
   font-size: 14px;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 .leadershipIntro {
@@ -597,9 +675,24 @@
 @media (max-width: 1100px) {
   .whoGrid,
   .missionVisionGrid,
-  .approachGrid,
   .manifestoGrid {
     grid-template-columns: 1fr;
+  }
+
+  .principlesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .valuesCard {
+    grid-column: auto;
+  }
+
+  .valuesList {
+    grid-template-columns: 1fr;
+  }
+
+  .approachGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .missionVisionGrid::before {
@@ -622,14 +715,6 @@
     padding-left: 56px;
   }
 
-  .manifestoStack {
-    padding-top: 0;
-  }
-
-  .manifestoCard:nth-child(2),
-  .manifestoCard:nth-child(3) {
-    margin-left: 0;
-  }
 }
 
 @media (max-width: 768px) {
@@ -670,12 +755,9 @@
     font-size: clamp(34px, 10vw, 48px);
   }
 
-  .manifestoCard {
-    transform: none;
-  }
-
-  .manifestoCard:hover {
-    transform: translateY(-4px);
+  .presenceMapFrame {
+    min-height: 340px;
+    padding: 20px;
   }
 
   .leadershipGrid {
@@ -713,18 +795,14 @@
     gap: 10px;
   }
 
+  .presenceLabel {
+    display: none;
+  }
+
   .signalChip {
     min-height: 34px;
     padding: 0 14px;
     font-size: 11px;
-  }
-
-  .manifestoCard {
-    padding: 24px 20px 24px;
-  }
-
-  .manifestoCardTitle {
-    font-size: 24px;
   }
 
   .leadershipScroller {

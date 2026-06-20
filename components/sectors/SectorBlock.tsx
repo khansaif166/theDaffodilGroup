@@ -139,17 +139,19 @@ export function SectorBlock({ sector }: SectorBlockProps) {
           <p className={styles.tagline}>{sector.tagline}</p>
           <div className={styles.copy}>
             <p>{sector.bodyPara1}</p>
-            <p>{sector.bodyPara2}</p>
+            {sector.bodyPara2 ? <p>{sector.bodyPara2}</p> : null}
           </div>
 
-          <div ref={statsRef} className={styles.stats}>
-            {sector.stats.map((stat) => (
-              <div key={`${stat.value}-${stat.label}`} className={styles.stat}>
-                <span className={styles.statValue}>{stat.value}</span>
-                <span className={styles.statLabel}>{stat.label}</span>
-              </div>
-            ))}
-          </div>
+          {sector.stats.length > 0 ? (
+            <div ref={statsRef} className={styles.stats}>
+              {sector.stats.map((stat) => (
+                <div key={`${stat.value}-${stat.label}`} className={styles.stat}>
+                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div ref={imageFrameRef} className={styles.media}>

@@ -11,7 +11,7 @@ import styles from "../AboutPage.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const headingLines = [["We", "Are", "The"], ["Daffodil", "Group."]];
+const headingLines = [["The", "Daffodil"], ["Group"]];
 
 export function AboutHeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -108,8 +108,9 @@ export function AboutHeroSection() {
               ))}
             </h1>
             <p ref={subcopyRef} className={styles.heroSubcopy}>
-              A holding group built on discipline, vision, and a relentless belief in
-              the businesses we build.
+              The Daffodil Group is a privately held, diversified operating company
+              dedicated to building and scaling businesses that create sustainable
+              value and meaningful impact.
             </p>
             <div ref={ruleRef} className={styles.heroRule} />
           </div>

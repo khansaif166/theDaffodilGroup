@@ -5,10 +5,10 @@ import { useSetNavbarTheme } from "@/hooks/useSetNavbarTheme";
 import { CtaSection } from "./CtaSection";
 import { NumbersSection } from "./NumbersSection";
 import { PresenceSection } from "./PresenceSection";
-import { QuoteSection } from "./QuoteSection";
 import { SectorsSection } from "./SectorsSection";
 import { VenturesSection } from "./VenturesSection";
 import { HeroSection } from "./sections/HeroSection";
+import { WhyPartnerSection } from "./sections/WhyPartnerSection";
 
 export function HomePage() {
   useSetNavbarTheme("dark");
@@ -18,10 +18,10 @@ export function HomePage() {
       <HeroSection />
       <NumbersSection />
       <SectorsSection />
-      <QuoteSection />
       <VenturesSection />
       <PresenceSection />
       <CtaSection />
+      <WhyPartnerSection />
     </main>
   );
 }

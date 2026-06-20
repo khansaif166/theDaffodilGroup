@@ -16,33 +16,35 @@ const ventures = [
   {
     name: "La' Daffodil Business Solutions",
     sector: "Business Advisory",
-    description: "Strategic advisory and market expansion across international borders.",
+    description: "Strategic business advisory firm specializing in:",
     image: siteImages.homeVentures.business,
   },
   {
     name: "Hayat Home",
     sector: "Design & Interior Architecture",
-    description:
-      "A design-led interior and fit-out company for residential and commercial spaces.",
+    description: "Luxury Interior Architecture, Design & Fit-Out Company.",
     image: siteImages.homeVentures.hayat,
   },
   {
     name: "Yellow Saffron Company",
     sector: "FMCG",
-    description: "A premium FMCG brand crafted for the modern consumer.",
+    description:
+      "A premium FMCG brand delivering high-quality spices, blends, seasonings, teas, coffees, and wellness products inspired by authentic flavors and modern lifestyles.",
     image: siteImages.homeVentures.yellowSaffron,
   },
   {
-    name: "Daffodil Stories",
-    sector: "Technology & Digital",
-    description: "A digital content and storytelling platform for the new age of media.",
-    image: siteImages.homeVentures.daffodilStories,
+    name: "The Reading Box",
+    sector: "Education & Learning",
+    description:
+      "An educational platform focused on inspiring young minds through curated reading experiences, learning resources, and developmental programs.",
+    image: siteImages.homeVentures.readingBox,
   },
   {
-    name: "The Reading Box",
-    sector: "Education & EdTech",
-    description: "An early learning concept nurturing curiosity in young minds.",
-    image: siteImages.homeVentures.readingBox,
+    name: "Ivaah Decor",
+    sector: "Lifestyle & E-Commerce",
+    description:
+      "A curated lifestyle and e-commerce platform offering furniture, decor, and design-led products that celebrate craftsmanship, functionality, and contemporary living.",
+    image: siteImages.homeVentures.daffodilStories,
   },
 ];
 
@@ -108,18 +110,6 @@ export function OurVenturesSection() {
         <div ref={introRef} className={styles.intro}>
           <span className={styles.label}>Our Ventures</span>
           <h2 className={styles.heading}>Our Ventures</h2>
-          <p className={styles.body}>
-            Our Global Presence With operations, partnerships, and business
-            interests spanning Saudi Arabia, the United Arab Emirates, India, and
-            emerging international markets, The Daffodil Group is uniquely
-            positioned to bridge opportunities across regions.
-          </p>
-          <p className={styles.body}>
-            Our understanding of diverse business environments enables us to
-            support organizations seeking growth, expansion, and market access
-            while navigating the complexities of an increasingly interconnected
-            global economy.
-          </p>
         </div>
 
         <div ref={gridRef} className={styles.grid}>

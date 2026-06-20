@@ -120,6 +120,7 @@ function SectorIcon({ icon }: { icon: SectorIconName }) {
 export function OurSectorsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const principlesRef = useRef<HTMLDivElement | null>(null);
+  const quoteRef = useRef<HTMLDivElement | null>(null);
   const introRef = useRef<HTMLDivElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
 
@@ -137,17 +138,20 @@ export function OurSectorsSection() {
       const cards = gsap.utils.toArray<HTMLElement>("[data-sector-card]", section);
 
       if (prefersReducedMotion) {
-        gsap.set([principlesRef.current, introRef.current, principleCards, cards], {
+        gsap.set([principlesRef.current, quoteRef.current, introRef.current, principleCards, cards], {
           opacity: 1,
           y: 0,
         });
+        gsap.set("[data-quote-rule]", { width: 64 });
         return;
       }
 
       gsap.set(principlesRef.current, { opacity: 0, y: 20 });
+      gsap.set(quoteRef.current, { opacity: 0, y: 20 });
       gsap.set(principleCards, { opacity: 0, y: 24 });
       gsap.set(introRef.current, { opacity: 0, y: 20 });
       gsap.set(cards, { opacity: 0, y: 30 });
+      gsap.set("[data-quote-rule]", { width: 0 });
 
       gsap.to(principlesRef.current, {
         opacity: 1,
@@ -169,6 +173,29 @@ export function OurSectorsSection() {
         ease: "power2.out",
         scrollTrigger: {
           trigger: principlesRef.current,
+          start: "top 84%",
+          once: true,
+        },
+      });
+
+      gsap.to(quoteRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: quoteRef.current,
+          start: "top 84%",
+          once: true,
+        },
+      });
+
+      gsap.to("[data-quote-rule]", {
+        width: 64,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: quoteRef.current,
           start: "top 84%",
           once: true,
         },
@@ -231,6 +258,17 @@ export function OurSectorsSection() {
               Integrity, Innovation, Excellence, Sustainability, Collaboration
             </p>
           </article>
+        </div>
+
+        <div ref={quoteRef} className={styles.quoteBlock}>
+          <div className={styles.quoteInner}>
+            <blockquote className={styles.quote}>
+              We don&apos;t just build businesses. We build ecosystems that outlast
+              trends and empower communities across borders.
+            </blockquote>
+            <p className={styles.quoteAttribution}>- The Daffodil Group</p>
+            <div data-quote-rule className={styles.quoteRule} />
+          </div>
         </div>
 
         <div ref={introRef} className={styles.intro}>

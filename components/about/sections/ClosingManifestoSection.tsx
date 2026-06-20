@@ -2,30 +2,39 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Link from "next/link";
-import type { CSSProperties } from "react";
 import { useLayoutEffect, useRef } from "react";
 
 import styles from "../AboutPage.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const pillars = [
-  {
-    title: "Built To Travel",
-    body: "We shape ventures that can move across regions, adapt to local markets, and still retain a clear identity.",
-  },
-  {
-    title: "Built To Compound",
-    body: "Every business is structured for endurance, with governance and operating discipline that strengthen over time.",
-  },
-  {
-    title: "Built With Intent",
-    body: "We back ideas that feel useful in the real world, not just impressive on paper.",
-  },
+const signalPoints = [
+  "Saudi Arabia",
+  "United Arab Emirates",
+  "India",
+  "Emerging Markets",
 ];
 
-const signalPoints = ["India", "UAE", "Saudi Arabia", "West Africa"];
+const locations = [
+  {
+    country: "India",
+    left: "70.5%",
+    top: "45.2%",
+    placement: "Right",
+  },
+  {
+    country: "UAE",
+    left: "61.6%",
+    top: "43%",
+    placement: "Above",
+  },
+  {
+    country: "Saudi Arabia",
+    left: "58.4%",
+    top: "44.8%",
+    placement: "Left",
+  },
+];
 
 export function ClosingManifestoSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -41,17 +50,19 @@ export function ClosingManifestoSection() {
 
     const context = gsap.context(() => {
       const intro = section.querySelector<HTMLElement>("[data-manifesto-intro]");
-      const cards = gsap.utils.toArray<HTMLElement>("[data-manifesto-card]", section);
+      const visual = section.querySelector<HTMLElement>("[data-manifesto-visual]");
       const chips = gsap.utils.toArray<HTMLElement>("[data-manifesto-chip]", section);
+      const markers = gsap.utils.toArray<HTMLElement>("[data-presence-marker]", section);
 
       if (prefersReducedMotion) {
-        gsap.set([intro, cards, chips], { opacity: 1, x: 0, y: 0, rotate: 0 });
+        gsap.set([intro, visual, chips, markers], { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 });
         return;
       }
 
       gsap.set(intro, { opacity: 0, y: 28 });
-      gsap.set(cards, { opacity: 0, y: 36, rotate: (index) => (index % 2 === 0 ? -2.5 : 2.5) });
+      gsap.set(visual, { opacity: 0, x: 24 });
       gsap.set(chips, { opacity: 0, y: 14 });
+      gsap.set(markers, { opacity: 0, scale: 0.8 });
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -69,13 +80,11 @@ export function ClosingManifestoSection() {
       });
 
       timeline.to(
-        cards,
+        visual,
         {
           opacity: 1,
-          y: 0,
-          rotate: 0,
-          duration: 0.7,
-          stagger: 0.12,
+          x: 0,
+          duration: 0.85,
           ease: "power2.out",
         },
         0.12,
@@ -92,6 +101,18 @@ export function ClosingManifestoSection() {
         },
         0.45,
       );
+
+      timeline.to(
+        markers,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.35,
+          stagger: 0.08,
+          ease: "power2.out",
+        },
+        0.3,
+      );
     }, section);
 
     return () => {
@@ -107,15 +128,22 @@ export function ClosingManifestoSection() {
       <div className={styles.manifestoGlow} aria-hidden="true" />
       <div className={`container ${styles.manifestoGrid}`}>
         <div data-manifesto-intro className={styles.manifestoIntro}>
-          <span className={styles.sectionLabel}>The Daffodil Standard</span>
+          <span className={styles.sectionLabel}>Our Global Presence</span>
           <h2 className={`${styles.sectionHeading} ${styles.sectionHeadingLight} ${styles.manifestoHeading}`}>
-            We build ventures with
-            <span className={styles.manifestoAccent}> memory, margin, and momentum.</span>
+            Bridging opportunities
+            <span className={styles.manifestoAccent}> across regions.</span>
           </h2>
           <p className={styles.manifestoBody}>
-            The group exists to create businesses that feel sharp in the present and
-            durable in the future, balancing market opportunity with operational
-            seriousness.
+            With operations, partnerships, and business interests spanning
+            Saudi Arabia, the United Arab Emirates, India, and emerging
+            international markets, The Daffodil Group is uniquely positioned to
+            bridge opportunities across regions.
+          </p>
+          <p className={styles.manifestoBody}>
+            Our understanding of diverse business environments enables us to
+            support organizations seeking growth, expansion, and market access
+            while navigating the complexities of an increasingly interconnected
+            global economy.
           </p>
 
           <div className={styles.manifestoSignals}>
@@ -125,30 +153,45 @@ export function ClosingManifestoSection() {
               </span>
             ))}
           </div>
-
-          <Link href="/ventures/" className={styles.manifestoLink}>
-            Explore our ventures
-            <span className={styles.teamArrow} aria-hidden="true">
-              →
-            </span>
-          </Link>
         </div>
 
-        <div className={styles.manifestoStack}>
-          {pillars.map((pillar, index) => (
-            <article
-              key={pillar.title}
-              data-manifesto-card
-              className={styles.manifestoCard}
-              style={{ "--card-offset": `${index * 28}px` } as CSSProperties}
-            >
-              <span className={styles.manifestoIndex}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className={styles.manifestoCardTitle}>{pillar.title}</h3>
-              <p className={styles.manifestoCardBody}>{pillar.body}</p>
-            </article>
-          ))}
+        <div data-manifesto-visual className={styles.presenceVisual}>
+          <div className={styles.presenceMapFrame}>
+            <img
+              src="/images/world-map-presence.png"
+              alt="World map showing The Daffodil Group global presence"
+              className={styles.presenceMap}
+            />
+
+            {locations.map((location) => (
+              <div
+                key={location.country}
+                data-presence-marker
+                className={styles.presenceMarker}
+                style={{ left: location.left, top: location.top }}
+              >
+                <span className={styles.presenceDot} />
+                <span
+                  className={`${styles.presenceLabel} ${
+                    styles[`presenceLabel${location.placement}`]
+                  }`}
+                >
+                  {location.country}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.presenceLegend}>
+            <div className={styles.presenceLegendItem}>
+              <span className={styles.presenceLegendTitle}>Core Regions</span>
+              <span className={styles.presenceLegendText}>Saudi Arabia · UAE · India</span>
+            </div>
+            <div className={styles.presenceLegendItem}>
+              <span className={styles.presenceLegendTitle}>Expansion Lens</span>
+              <span className={styles.presenceLegendText}>Emerging international markets</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

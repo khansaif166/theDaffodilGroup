@@ -13,6 +13,7 @@ import styles from "./Navbar.module.css";
 
 const navLinks = [
   { href: "/about/", label: "About", id: "about" },
+  { href: "/founder/", label: "Founder", id: "founder" },
   { href: "/ventures/", label: "Ventures", id: "ventures" },
   { href: "/sectors/", label: "Sectors", id: "sectors" },
   { href: "/#presence", label: "Presence", id: "presence" },
@@ -79,7 +80,7 @@ export function Navbar() {
   const prefersReducedMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("presence");
+  const [activeSection, setActiveSection] = useState("");
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const topLineRef = useRef<HTMLSpanElement | null>(null);
   const middleLineRef = useRef<HTMLSpanElement | null>(null);
@@ -141,6 +142,39 @@ export function Navbar() {
 
     return () => {
       observer.disconnect();
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const hash = window.location.hash;
+
+    if (!hash) {
+      return;
+    }
+
+    let frameId = 0;
+    let attempts = 0;
+
+    const tryScroll = () => {
+      if (scrollToHashTarget(hash)) {
+        return;
+      }
+
+      attempts += 1;
+
+      if (attempts < 12) {
+        frameId = window.requestAnimationFrame(tryScroll);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(tryScroll);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
     };
   }, [pathname]);
 
