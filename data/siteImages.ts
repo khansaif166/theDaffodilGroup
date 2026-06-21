@@ -57,8 +57,8 @@ export const siteImages = {
         alt: "A sophisticated boardroom with skyline views suited to cross-border business strategy.",
       },
       listingImage: {
-        src: "/images/digital-laptop-desk.jpg",
-        alt: "A polished executive desk with a laptop and warm editorial lighting.",
+        src: "/images/venture-advisory.jpg",
+        alt: "A premium executive boardroom with strategy documents, city views, and warm ambient lighting.",
       },
     },
     hayatHome: {

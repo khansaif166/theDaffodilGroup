@@ -148,30 +148,79 @@
   background: var(--color-charcoal);
   pointer-events: auto;
   overscroll-behavior: contain;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobileShell {
   display: grid;
   width: 100%;
-  min-height: 100%;
-  grid-template-rows: 1fr auto;
+  min-height: 100svh;
+  grid-template-rows: auto 1fr auto;
   align-content: start;
   padding: 112px 24px 32px;
+  background:
+    radial-gradient(circle at top right, rgba(209, 169, 114, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+}
+
+.mobileIntro {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.mobileEyebrow {
+  color: rgba(209, 169, 114, 0.82);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mobileLead {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .mobileNav {
   display: grid;
   align-content: start;
-  justify-items: start;
-  gap: 0.9rem;
+  gap: 12px;
+  min-height: 0;
+}
+
+.mobileItem {
+  width: 100%;
 }
 
 .mobileLink {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 84px;
+  padding: 20px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+}
+
+.mobileLinkText {
   font-family: var(--font-display), serif;
-  font-size: clamp(40px, 10vw, 44px);
+  font-size: clamp(28px, 7vw, 38px);
   color: var(--color-white);
-  line-height: 0.96;
+  line-height: 0.98;
+}
+
+.mobileLinkMeta {
+  color: rgba(209, 169, 114, 0.82);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .mobileFooter {
@@ -181,8 +230,24 @@
   padding-top: 40px;
 }
 
+.mobileContactBlock {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mobileFooterLabel {
+  color: rgba(209, 169, 114, 0.82);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .mobileEmail {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 14px;
 }
 
@@ -230,11 +295,16 @@
   }
 
   .mobileNav {
-    gap: 0.7rem;
+    gap: 10px;
   }
 
   .mobileLink {
-    font-size: clamp(34px, 12vw, 42px);
+    min-height: 76px;
+    padding: 18px 18px;
+  }
+
+  .mobileLinkText {
+    font-size: clamp(26px, 9vw, 34px);
   }
 
   .mobileFooter {

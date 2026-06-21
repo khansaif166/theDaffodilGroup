@@ -76,7 +76,6 @@ export function WhyPartnerSection() {
     <section ref={sectionRef} className={styles.section}>
       <div className="container">
         <div ref={introRef} className={styles.intro}>
-          <span className={styles.label}>Section 8</span>
           <h2 className={styles.heading}>WHY PARTNER WITH US</h2>
         </div>
 

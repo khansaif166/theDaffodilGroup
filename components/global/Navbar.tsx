@@ -312,10 +312,16 @@ export function Navbar() {
             transition={{ duration: prefersReducedMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.mobileShell}>
+              <div className={styles.mobileIntro}>
+                <span className={styles.mobileEyebrow}>Navigation</span>
+                <p className={styles.mobileLead}>Explore The Daffodil Group</p>
+              </div>
+
               <nav className={styles.mobileNav} aria-label="Mobile primary">
                 {overlayLinks.map((link, index) => (
                   <motion.div
                     key={link.id}
+                    className={styles.mobileItem}
                     initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 30 }}
@@ -333,16 +339,22 @@ export function Navbar() {
                         setIsMenuOpen(false);
                       }}
                     >
-                      {link.label}
+                      <span className={styles.mobileLinkText}>{link.label}</span>
+                      <span className={styles.mobileLinkMeta}>
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
                     </Link>
                   </motion.div>
                 ))}
               </nav>
 
               <div className={styles.mobileFooter}>
-                <a href="mailto:hello@thedaffodilgroup.com" className={styles.mobileEmail}>
-                  hello@thedaffodilgroup.com
-                </a>
+                <div className={styles.mobileContactBlock}>
+                  <span className={styles.mobileFooterLabel}>Contact</span>
+                  <a href="mailto:hello@thedaffodilgroup.com" className={styles.mobileEmail}>
+                    hello@thedaffodilgroup.com
+                  </a>
+                </div>
                 <div className={styles.mobileSocials}>
                   {socials.map((social) => (
                     <Link
